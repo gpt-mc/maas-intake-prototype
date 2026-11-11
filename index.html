@@ -1,0 +1,2162 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Maas College Intake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&family=Ubuntu:wght@300;400;500;700&family=Roboto:wght@500;700&display=swap">
+<style>
+/* Layout: brand page — magenta topbar, rounded hero with floating header card, 2-col form + sidebar, orange CTA over purple footer. Single light look by design. */
+:root {
+  color-scheme: light;
+  /* Kleuren exact gemeten uit het ontwerp (opendag.pdf) */
+  --magenta: #cd004d;
+  --orange: #f37022;
+  --orange-dark: #dc6119;   /* alleen hover, niet in ontwerp */
+  --orange-soft: #fdf0e8;   /* gekozen kaart, hulpkaart */
+  --orange-dot: #fde2d3;    /* huidige stap in zijbalk */
+  --orange-dot-2: #fef1e9;  /* tijdlijn bevestiging */
+  --purple: #6460aa;
+  --green: #0cb14b;
+  --green-soft: #ceefdb;
+  --green-bg: #e6f7ed;
+  --blue: #0089d1;
+  --blue-bg: #e5f3fa;
+  --black: #000000;
+  --ink: #292d34;
+  --muted: #666666;
+  --muted-2: #6c6c6c;
+  --faded: #e5e5e5;
+  --line: #e5e5e5;          /* invoervelden */
+  --card-line: #edeff2;
+  --choice-line: #eceef1;
+  --divider: #eaedf0;
+  --dd-line: #e8e8e8;
+  --dd-text: #232323;
+  --dd-sub: #6f6f6f;
+  --placeholder: #6b6b6b;
+  --chev: #727272;
+  --intro-text: #626975;
+  --bg: #ffffff;
+  --card: #ffffff;
+  --error: #d21e61;
+  --f-head: "League Spartan", "Helvetica Neue", Arial, sans-serif;
+  --f-brand: "Ubuntu", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Open Sans", "Segoe UI", system-ui, sans-serif;
+  --f-btn: "Roboto", "Helvetica Neue", system-ui, sans-serif;
+  --wrap: 940px;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 14px; line-height: 1.5; }
+a { color: inherit; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid rgba(243,112,34,.45); outline-offset: 2px; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: var(--wrap); margin-inline: auto; }
+.wrap-wide { max-width: 1212px; margin-inline: auto; }
+svg.i { width: 1em; height: 1em; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Prototype strip */
+.proto { background: #1d1d1f; color: #fff; font-size: 12.5px; }
+.proto .wrap-wide { display: flex; gap: 12px 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-block: 7px; }
+.proto b { color: #ffb689; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 11px; margin-right: 6px; }
+.proto-actions { display: flex; gap: 8px; }
+.proto-actions button { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: 6px; padding: 3px 10px; font-size: 12px; }
+.proto-actions button:hover { background: rgba(255,255,255,.12); }
+
+/* Topbar */
+.topbar { background: var(--magenta); color: #fff; font-family: var(--f-brand); font-weight: 500; font-size: 12px; }
+.topbar .wrap-wide { max-width: var(--wrap); display: flex; justify-content: space-between; gap: 16px; padding-block: 9px; }
+.topbar ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+.topbar li { display: flex; align-items: center; gap: 6px; }
+.topbar .contact { display: flex; gap: 12px; }
+
+/* Hero */
+.hero-zone { position: relative; padding-top: 46px; }
+.hero { position: relative; border-radius: 18px; overflow: hidden; min-height: 322px; box-shadow: 0 18px 40px -18px rgba(30,20,60,.45); background: #2a2950; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,18,45,.62) 0%, rgba(20,18,45,.25) 55%, rgba(20,18,45,.05) 100%); }
+.hero-text { position: relative; z-index: 1; max-width: var(--wrap); margin-inline: auto; padding: 132px 0 70px; color: #fff; }
+.eyebrow { font-family: var(--f-brand); font-weight: 700; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 6px; }
+.hero h1 { font-family: var(--f-head); font-weight: 700; font-size: clamp(26px, 4vw, 40px); line-height: 1.15; margin: 0 0 18px; text-wrap: balance; text-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.crumbs { font-family: var(--f-brand); font-size: 12px; font-weight: 500; display: flex; gap: 6px; flex-wrap: wrap; }
+.crumbs span:last-child { font-weight: 700; }
+.header-card { position: absolute; z-index: 2; top: 16px; left: 0; right: 0; max-width: calc(var(--wrap) + 30px); margin-inline: auto; background: #fff; border-radius: 6px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.25); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 21px; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-family: var(--f-brand); font-size: 29px; line-height: 1; white-space: nowrap; }
+.logo b { font-weight: 500; }
+.logo span { font-weight: 300; }
+.logo svg { width: 48px; height: 44px; }
+.head-btns { display: flex; gap: 9px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 6px; border: 1.5px solid var(--orange); font-family: var(--f-btn); font-weight: 700; font-size: 13px; padding: 10px 26px; text-decoration: none; transition: background .15s, color .15s, transform .1s; }
+.btn:active { transform: translateY(1px); }
+.btn-solid { background: var(--orange); color: #fff; }
+.btn-solid:hover { background: var(--orange-dark); border-color: var(--orange-dark); }
+.btn-ghost { background: #fff; color: var(--orange); }
+.btn-ghost:hover { background: var(--orange-soft); }
+.btn[disabled] { opacity: .4; cursor: not-allowed; }
+.head-btns .btn { font-weight: 700; font-size: 12px; gap: 7px; padding: 11px 28px; }
+
+/* Intro */
+.intro { padding-block: 76px 30px; }
+.intro h2 { font-family: var(--f-head); font-weight: 700; font-size: clamp(27px, 4vw, 39px); margin: 0 0 12px; line-height: 1.15; text-wrap: balance; color: var(--ink); }
+.intro p { color: var(--intro-text); font-size: 12.2px; margin: 0; }
+
+/* Main grid */
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 278px; gap: 32px; align-items: start; padding-bottom: 110px; }
+.card { background: var(--card); border: 1px solid var(--card-line); border-radius: 8px; }
+.form-card { display: flex; flex-direction: column; min-height: 544px; }
+.form-head { display: flex; align-items: center; gap: 10px; padding: 24px 25px; border-bottom: 1px solid var(--divider); color: var(--black); }
+.num { width: 32px; height: 32px; border-radius: 50%; background: var(--orange); color: #fff; display: grid; place-items: center; font-size: 14px; font-weight: 500; flex: none; }
+.form-head h3 { font-family: var(--f-head); font-weight: 700; font-size: 16px; margin: 0; }
+.form-body { padding: 22px 25px 0; flex: 1; display: flex; flex-direction: column; }
+.form-body h4 { font-family: var(--f-head); font-weight: 700; font-size: 32px; margin: 0 0 8px; line-height: 1.2; text-wrap: balance; color: var(--black); }
+.lead { color: var(--muted); font-size: 12.2px; margin: 0 0 30px; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 16px; }
+.field label { display: block; font-weight: 600; font-size: 12.5px; margin-bottom: 6px; color: var(--ink); }
+.req { color: var(--error); }
+.field input { width: 100%; height: 34px; border: 1px solid var(--line); border-radius: 4px; padding: 0 11px; font: inherit; font-size: 11.5px; color: var(--ink); background: #fff; transition: border-color .15s, box-shadow .15s; }
+.field input::placeholder { color: var(--placeholder); }
+.field textarea { display: block; width: 100%; height: 68px; border: 1px solid var(--line); border-radius: 4px; padding: 9px 11px; font: inherit; font-size: 11.5px; line-height: 1.5; color: var(--black); background: #fff; resize: vertical; }
+.field textarea::placeholder { color: var(--placeholder); }
+.field textarea:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(243,112,34,.15); }
+.field input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(243,112,34,.15); }
+.err { color: var(--error); font-size: 11.5px; margin-top: 4px; min-height: 0; }
+.newsletter { margin-top: 30px; }
+.newsletter .title { font-weight: 700; font-size: 12.5px; margin-bottom: 8px; }
+.newsletter .title span { font-weight: 400; color: var(--muted); margin-left: 4px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 10.5px; color: var(--muted); line-height: 1.45; cursor: pointer; }
+.check input { appearance: none; -webkit-appearance: none; margin: 1px 0 0; width: 13px; height: 13px; min-width: 13px; padding: 0; box-shadow: none; flex: none; border: 1px solid var(--line); border-radius: 3px; background: #fff center / 9px 9px no-repeat; cursor: pointer; }
+.check input:focus-visible { outline: 3px solid rgba(243,112,34,.45); outline-offset: 2px; border-color: var(--orange); }
+.check input:checked { background-color: var(--orange); border-color: var(--orange); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E"); }
+.check a { color: var(--orange); text-decoration: none; }
+
+.label-row { font-weight: 600; font-size: 12.5px; margin-bottom: 8px; color: var(--ink); }
+.choices { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.choice { position: relative; border: 1px solid var(--choice-line); border-radius: 6px; background: #fff; padding: 19px 10px 19px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: border-color .15s, background .15s, box-shadow .15s; cursor: pointer; }
+.choice:hover { border-color: #f7b48c; }
+.choice input { position: absolute; opacity: 0; pointer-events: none; }
+.choice svg { width: 17px; height: 17px; margin-bottom: 8px; color: var(--muted); }
+.choice strong { font-size: 13px; font-weight: 700; color: var(--black); }
+.choice small { font-size: 11px; color: var(--muted); line-height: 1.4; max-width: 12em; }
+.choice.selected { border-color: var(--orange); background: var(--orange-soft); }
+.choice.selected svg, .choice.selected strong, .choice.selected small { color: var(--orange); }
+.choice:has(input:focus-visible) { outline: 3px solid rgba(243,112,34,.45); outline-offset: 2px; }
+
+.placeholder { border: 1.5px dashed #f2b38e; background: var(--orange-soft); border-radius: 6px; padding: 18px 20px; color: #6a4a35; font-size: 13px; }
+.placeholder strong { color: var(--ink); }
+
+.form-foot { margin: auto 25px 0; padding: 18px 0 23px; border-top: 1px solid var(--divider); display: flex; justify-content: space-between; gap: 12px; margin-top: 33px; }
+.form-foot .btn { min-width: 124px; padding: 9.5px 18px; line-height: 1.4; }
+
+/* Vervolgvragen (bijv. open dag) */
+.extra { margin-top: 31px; display: grid; gap: 32px; }
+.extra:empty { display: none; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 16px; }
+.field .err { color: var(--magenta); font-size: 10.5px; }
+.sel { position: relative; }
+.sel-btn { width: 100%; height: 34px; border: 1px solid var(--line); border-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 11px; font-size: 11.5px; color: var(--black); text-align: left; }
+.sel-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sel-btn.is-ph { color: var(--placeholder); }
+.sel-btn .chev { width: 15px; height: 15px; transition: transform .15s; color: var(--chev); }
+.sel-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+.sel-list { position: absolute; z-index: 20; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1px solid var(--dd-line); border-radius: 6px; box-shadow: 0 14px 30px -12px rgba(0,0,0,.28); list-style: none; margin: 0; padding: 6px 0; max-height: 320px; overflow-y: auto; }
+.sel-list:focus { outline: none; }
+.sel-list li { padding: 7px 12px; font-size: 11.5px; cursor: pointer; color: var(--dd-text); }
+.sel-list li small { display: block; font-size: 9.5px; color: var(--dd-sub); margin-top: 3px; }
+.sel-list li.ph { font-size: 10px; color: var(--dd-sub); cursor: default; padding-block: 4px; }
+.sel-list li.active { background: var(--magenta); color: #fff; }
+.sel-list li.active small { color: rgba(255,255,255,.85); }
+
+/* Bevestiging */
+.num svg { width: 15px; height: 15px; stroke-width: 3; }
+.is-done .form-body { padding-bottom: 25px; }
+.is-done .form-foot { display: none; }
+.notice-ok { display: flex; gap: 10px; align-items: center; background: var(--green-bg); color: var(--black); border-radius: 6px; padding: 10px 14px; font-size: 10.5px; }
+.notice-ok .ic { width: 22px; height: 22px; border-radius: 50%; background: #fff; color: var(--green); display: grid; place-items: center; flex: none; }
+.notice-ok .ic svg { width: 12px; height: 12px; stroke-width: 3; }
+.next-title { font-weight: 700; font-size: 12.5px; margin: 19px 0 10px; color: var(--black); }
+.next-box { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.next-info { background: var(--blue-bg); color: var(--black); display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px; font-size: 10.5px; line-height: 1.45; }
+.next-info svg { color: var(--blue); width: 15px; height: 15px; margin-top: 2px; }
+.timeline { list-style: none; margin: 0; padding: 18px 16px 16px; display: flex; flex-direction: column; gap: 16px; }
+.timeline li { display: grid; grid-template-columns: 22px 1fr; gap: 14px; position: relative; }
+.timeline li:not(:last-child)::before { content: ""; position: absolute; left: 10.5px; top: 26px; bottom: -14px; width: 1px; background: var(--orange-dot-2); }
+.timeline .dot { background: var(--orange-dot-2); color: var(--orange); }
+.timeline strong { display: block; font-size: 12.5px; padding-top: 2px; color: var(--black); }
+.timeline small { display: block; font-size: 10.5px; color: #696969; }
+
+/* ===== Telefoongesprek: veld + planner (maten en kleuren uit Telefoongesprek.pdf) ===== */
+.extra > *, .field { min-width: 0; }
+.pick { width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 4px; background: #fff; display: flex; align-items: flex-start; gap: 8px; padding: 8px 11px; font-size: 11.5px; line-height: 1.45; color: var(--black); text-align: left; }
+.pick svg { width: 13px; height: 13px; color: var(--muted); margin-top: 1.5px; flex: none; }
+.pick span { min-width: 0; overflow-wrap: anywhere; }
+.pick.is-ph { color: var(--placeholder); }
+.modal-ov { position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.2); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.modal { background: #fff; border-radius: 12px; width: 845px; max-width: 100%; height: 757px; max-height: 100%; display: flex; flex-direction: column; box-shadow: 0 30px 60px -24px rgba(0,0,0,.35); overflow: hidden; outline: none; }
+.m-top { padding: 26px 26px 0; }
+.m-brand { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.m-brand .l { display: flex; align-items: center; gap: 10px; font-size: 10.5px; color: #6a6a6a; min-width: 0; }
+.m-brand .mini { display: flex; align-items: center; gap: 4px; font-family: var(--f-head); font-weight: 400; font-size: 8.5px; color: var(--ink); padding-right: 10px; border-right: 1px solid var(--line); white-space: nowrap; }
+.m-brand .mini b { font-weight: 700; }
+.m-brand .mini svg { width: 15px; height: 14px; }
+.m-close { width: 33px; height: 33px; border-radius: 6px; background: #f7f7f8; border: 0; display: grid; place-items: center; color: #666; flex: none; }
+.m-close svg { width: 17px; height: 17px; stroke-width: 2.4; }
+.m-close:hover { background: #eeeef0; }
+.m-steps { display: flex; align-items: center; gap: 11px; margin-top: 20px; padding-bottom: 21px; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; }
+.m-step { display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: #707070; }
+.m-step .c { width: 18px; height: 18px; border-radius: 50%; background: #f7f7f8; color: #787878; display: grid; place-items: center; font-size: 10px; flex: none; }
+.m-step.active { color: var(--purple); font-weight: 700; font-size: 12.5px; }
+.m-step.active .c { width: 32px; height: 32px; background: var(--purple); color: #fff; font-size: 14px; font-weight: 500; }
+.m-step.done { color: var(--green); }
+.m-step.done .c { background: var(--green); color: #fff; }
+.m-step.done .c svg { width: 10px; height: 10px; stroke-width: 3.5; }
+.m-conn { width: 22px; height: 1px; background: #ececec; }
+.m-body { flex: 1; overflow-y: auto; padding: 0 26px 20px; min-height: 0; scrollbar-gutter: stable; }
+.m-h { font-family: var(--f-head); font-weight: 700; font-size: 28px; line-height: 1.15; color: var(--black); margin: 13px 0 6px; text-wrap: balance; }
+.m-sub { color: var(--muted); font-size: 12.2px; margin: 0 0 27px; }
+.m-grid { display: grid; grid-template-columns: minmax(0, 1fr) 253px; gap: 20px; align-items: start; }
+.m-card { border: 1px solid #eeeeee; border-radius: 8px; padding: 16px; }
+.wk { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.wk button { width: 33px; height: 33px; border: 1px solid #ececec; border-radius: 6px; background: #fff; display: grid; place-items: center; color: var(--black); flex: none; }
+.wk button svg { width: 16px; height: 16px; }
+.wk button[disabled] { opacity: .35; cursor: default; }
+.wk .t { text-align: center; }
+.wk strong { font-size: 12.5px; color: var(--black); }
+.wk small { display: block; font-size: 10.5px; color: #696969; }
+.days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; margin-top: 16px; }
+.day { border: 1px solid #e5e5e5; border-radius: 6px; background: #fff; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
+.day small { font-size: 10px; color: #797979; }
+.day strong { font-family: var(--f-head); font-size: 16px; font-weight: 700; color: var(--black); line-height: 1.2; }
+.day:hover { border-color: #f7b48c; }
+.day.sel { border-color: var(--orange); background: var(--orange-soft); }
+.day.sel small, .day.sel strong { color: var(--orange); }
+.day-h { font-family: var(--f-head); font-weight: 700; font-size: 16px; color: var(--black); margin: 22px 0 0; }
+.day-hint { font-size: 10.5px; color: #676767; margin: 0; }
+.part { font-weight: 700; font-size: 12.5px; color: var(--black); margin: 15px 0 8px; }
+.lunch + .part { margin-top: 15px; }
+.slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.slot { height: 38px; border: 1px solid #e5e5e5; border-radius: 6px; background: #fff; display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 12.5px; color: var(--black); white-space: nowrap; }
+.slot:hover { border-color: #f7b48c; }
+.cb { width: 13px; height: 13px; border: 1px solid #e5e5e5; border-radius: 3px; background: #fff center / 9px 9px no-repeat; flex: none; }
+.slot.sel { border-color: var(--orange); background: var(--orange-soft); }
+.slot.sel .cb { background-color: var(--orange); border-color: var(--orange); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E"); }
+.lunch { margin-top: 17px; background: #efefef; border-radius: 4px; height: 29px; display: grid; place-items: center; font-size: 10.5px; color: #686868; text-align: center; padding: 0 8px; }
+.m-side { display: grid; gap: 15px; }
+.prefs h3 { font-family: var(--f-head); font-weight: 700; font-size: 15px; color: var(--black); margin: 0; display: flex; justify-content: space-between; align-items: center; }
+.badge { min-width: 22px; height: 22px; border-radius: 4px; background: #e0dfee; color: var(--purple); font-family: var(--f-body); font-size: 10.5px; font-weight: 400; display: inline-grid; place-items: center; padding: 0 6px; }
+.pg-day { font-weight: 700; font-size: 12.5px; color: var(--black); margin-top: 12px; }
+.pg-sub { font-size: 10.5px; color: #6d6d6d; margin: 3px 0 9px; }
+.pg-sub + .pref { margin-top: 0; }
+.pref { display: flex; justify-content: space-between; align-items: center; height: 36px; background: var(--orange-soft); border-radius: 4px; padding: 0 6px 0 10px; font-size: 12.5px; color: var(--black); margin-top: 7px; }
+.pref button { border: 0; background: none; color: var(--orange); padding: 5px; display: grid; border-radius: 4px; }
+.pref button svg { width: 12px; height: 12px; stroke-width: 2.6; }
+.pref button:hover { background: rgba(243,112,34,.12); }
+.pg-empty { font-size: 11px; color: var(--muted); margin: 16px 0 0; }
+.m-info { background: var(--blue-bg); border-radius: 8px; padding: 13px 14px; display: flex; gap: 10px; align-items: flex-start; font-size: 10.5px; line-height: 1.45; color: var(--black); }
+.m-info svg { color: var(--blue); width: 15px; height: 15px; flex: none; margin-top: 1px; }
+.m-info strong { display: block; font-size: 12.5px; margin-bottom: 4px; }
+.m-info.wide { margin-top: 21px; font-size: 12.2px; }
+.m-foot { margin: 0 26px; padding: 20px 0 16px; border-top: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.m-foot.end { justify-content: flex-end; }
+.m-foot .btn { height: 38px; padding: 0 31px; font-family: var(--f-body); font-weight: 700; font-size: 12px; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-plain { background: #fff; border: 1px solid #e5e5e5; color: #666; border-radius: 4px; font-family: var(--f-body); font-weight: 600; }
+.m-foot .btn-plain { padding: 0 16px; }
+.m-foot .btn-ghost { min-width: 124px; padding: 0 18px; }
+.btn-plain:hover { background: #fafafa; }
+.ck-card { border: 1px solid #eeeeee; border-radius: 8px; }
+.ck-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0 16px; min-height: 55px; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; }
+.ck-head .l { display: flex; align-items: center; gap: 10px; font-family: var(--f-head); font-weight: 700; font-size: 15px; color: var(--black); }
+.ck-head .r { font-size: 10.5px; color: #676767; }
+.ck-row { display: grid; grid-template-columns: 256px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 0 16px; min-height: 69px; border-bottom: 1px solid #f0f0f0; }
+.ck-row:last-child { border-bottom: 0; }
+.ck-row strong, .done-row strong { display: block; font-size: 12.5px; color: var(--black); }
+.ck-row small, .done-row small { display: block; font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 7px; padding-block: 8px; }
+.chip { height: 37px; padding: 0 13px; border: 1px solid var(--orange); background: var(--orange-soft); border-radius: 4px; display: inline-flex; align-items: center; gap: 9px; font-size: 12.5px; color: var(--black); white-space: nowrap; }
+.wijzig { color: var(--magenta); font-weight: 700; font-size: 11px; display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 4px 0; }
+.wijzig svg { width: 12px; height: 12px; }
+.wijzig:hover { text-decoration: underline; }
+.ok-box { background: var(--green-soft); border-radius: 6px; display: flex; align-items: center; gap: 13px; padding: 10px 16px; min-height: 54px; color: var(--black); }
+.ok-box .big { width: 33px; height: 33px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; flex: none; }
+.ok-box .big svg { width: 17px; height: 17px; stroke-width: 3; }
+.ok-box strong { display: block; font-size: 12.5px; }
+.ok-box small { display: block; font-size: 10.5px; }
+.sec-h { font-family: var(--f-head); font-weight: 700; font-size: 15px; color: var(--black); margin: 15px 0 12px; }
+.done-rows { display: grid; gap: 14px; }
+.done-row { border: 1px solid #eeeeee; border-radius: 8px; display: grid; grid-template-columns: 294px minmax(0, 1fr); align-items: center; min-height: 72px; padding: 0 16px; }
+.chip.g { border-color: #6dd093; background: var(--green-soft); height: 40px; padding: 0 14px; }
+.chip.g .cb { background-color: var(--green); border-color: var(--green); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E"); }
+@media (max-width: 760px) {
+  .modal { height: 100%; border-radius: 10px; }
+  .m-top { padding: 18px 18px 0; }
+  .m-body { padding: 0 18px 18px; }
+  .m-foot { margin: 0 18px; }
+  .m-foot .btn { padding: 0 16px; }
+  .m-grid { grid-template-columns: 1fr; }
+  .m-h { font-size: 23px; }
+  .slots { grid-template-columns: 1fr 1fr; }
+  .ck-row, .done-row { grid-template-columns: 1fr; gap: 4px; padding-block: 12px; }
+  .m-conn { display: none; }
+  .m-brand .l > span:last-child { display: none; }
+}
+
+/* ===== Opleiding stap 3: aanmelding & inschrijving (maten uit Opleiding 2.pdf) ===== */
+.form3 { display: grid; gap: 18px; }
+.form3 .row2 { gap: 18px 16px; }
+.hint { color: var(--error); font-size: 10.5px; line-height: 1.2; margin-top: 5px; }
+.is-s3 .lead { margin-bottom: 26px; }
+.sel-btn[disabled] { cursor: not-allowed; }
+.sel-list.tall { max-height: 440px; }
+.sel-list li.grp { font-size: 9.5px; color: #747474; padding: 7px 12px 0; cursor: default; }
+.field .lbl { display: block; font-weight: 600; font-size: 12.5px; margin-bottom: 6px; color: var(--ink); }
+.seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; }
+.seg button { height: 38px; border: 1px solid #eeeeee; border-radius: 6px; background: #fff; font-family: var(--f-body); font-size: 12px; color: #1a1a1a; }
+.seg button:hover { border-color: #f7b48c; }
+.seg button.sel { border-color: var(--orange); background: var(--orange-soft); color: var(--orange); font-weight: 600; }
+.numw { position: relative; }
+.numw input { padding-right: 34px; }
+.spin { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; }
+.spin button { border: 0; background: none; padding: 0; width: 14px; height: 11px; display: grid; place-items: center; color: #6c6c6c; }
+.spin button:hover { color: var(--black); }
+.spin svg { width: 12px; height: 12px; stroke-width: 1.6; }
+.is-s3 .form-foot { margin-top: 20px; padding-top: 20px; padding-bottom: 20px; }
+
+/* ===== Pop-up leerwerkplek (BBL / FLEX) ===== */
+.lw { background: #fff; border-radius: 12px; width: 460px; max-width: 100%; max-height: 100%; overflow-y: auto; padding: 22px 24px 20px; box-shadow: 0 30px 60px -24px rgba(0,0,0,.35); outline: none; }
+.lw-head { display: flex; align-items: center; gap: 10px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0; }
+.lw-head h2 { font-family: var(--f-head); font-weight: 700; font-size: 16px; color: var(--black); margin: 0; }
+.lw-head .ic { width: 24px; height: 24px; border-radius: 50%; background: var(--orange); color: #fff; display: grid; place-items: center; flex: none; }
+.lw-head .ic svg { width: 14px; height: 14px; stroke-width: 2.4; }
+.lw p { font-size: 12.2px; color: var(--muted); margin: 16px 0 16px; }
+.lw p strong { color: var(--black); }
+.lw .lbl { display: block; font-weight: 600; font-size: 12.5px; margin-bottom: 8px; color: var(--ink); }
+.lw-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lw-opt { height: 39px; border: 1px solid #eeeeee; border-radius: 6px; background: #fff; display: flex; align-items: center; gap: 10px; padding: 0 14px; font-family: var(--f-body); font-size: 12.5px; color: var(--black); text-align: left; }
+.lw-opt:hover { border-color: #f7b48c; }
+.lw-opt.sel { border-color: var(--orange); background: var(--orange-soft); color: var(--orange); }
+.lw-opt.sel .cb { background-color: var(--orange); border-color: var(--orange); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E"); }
+.lw .err { color: var(--error); font-size: 10.5px; margin-top: 6px; }
+.lw-note { margin-top: 14px; background: var(--orange-soft); border-radius: 6px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; font-size: 11px; line-height: 1.45; color: var(--black); }
+.lw-note svg { width: 14px; height: 14px; color: var(--orange); flex: none; margin-top: 1px; }
+.lw-note a { color: var(--orange); font-weight: 600; text-decoration: none; }
+.lw-note a:hover { text-decoration: underline; }
+.lw-foot { display: flex; justify-content: flex-end; margin-top: 20px; }
+.lw-foot .btn { height: 38px; padding: 0 28px; font-family: var(--f-body); font-weight: 700; font-size: 12px; }
+
+/* ===== Zelf betalen (maten uit opleiding 4 "dit doe ik zelf".pdf) ===== */
+.form3 > :empty { display: none; }
+.pay { margin-top: -7px; }
+.pay-help { font-size: 10.5px; color: #6c6c6c; margin: 10px 0 0; line-height: 1.45; }
+.pay-lbl { font-weight: 700; font-size: 12.5px; color: var(--ink); margin: 11px 0 5px; }
+.price { border: 1px solid #ededed; border-radius: 6px; overflow: hidden; }
+.pr { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 31px; margin: 0 12px; border-bottom: 1px solid #ededed; font-size: 11px; color: #0c0c0c; }
+.pr:nth-last-child(2) { border-bottom: 0; }
+.pr b { font-weight: 600; color: var(--black); text-align: right; }
+.pr b.g { color: var(--green); font-weight: 400; }
+.pr-tot { background: #f6f6f6; border-top: 1px solid #e8e8e8; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 12px; min-height: 48px; line-height: 1.35; color: var(--black); }
+.pr-tot strong { display: block; font-size: 13px; }
+.pr-tot small { display: block; font-size: 11px; }
+.amt { font-family: var(--f-head); font-weight: 700; font-size: 20px; white-space: nowrap; }
+.pay-note { margin-top: 14px; background: var(--orange-soft); border-radius: 6px; padding: 11px 14px; display: flex; gap: 16px; align-items: center; font-size: 11px; line-height: 1.5; color: var(--black); }
+.pay-note .ic { width: 22px; height: 22px; border-radius: 50%; background: #fff; display: grid; place-items: center; color: var(--orange); flex: none; }
+.pay-note .ic svg { width: 12px; height: 12px; }
+.pay-note.ok { background: var(--green-bg); }
+.pay-note.ok .ic { color: var(--green); }
+.pay-note.ok .ic svg { stroke-width: 3; }
+.pay-link { border: 0; background: none; padding: 0; color: var(--orange); font-family: var(--f-body); font-weight: 700; font-size: 11px; }
+.pay-link:hover { text-decoration: underline; }
+.pay-m { margin-top: 11px; }
+.pay-m .lbl { margin-bottom: 7px; }
+.seg.two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.seg.two button { height: 40px; }
+.seg.two button.sel { font-weight: 400; }
+.field label.check { display: flex; font-weight: 400; font-size: 10.5px; color: var(--muted); margin-bottom: 0; }
+.pay-check { margin-top: 13px; }
+/* ===== Werkgever betaalt (maten uit Opleiding 5 "Mijn werkgever".pdf) ===== */
+.wg { margin-top: 2px; }
+.btn-copy { height: 34px; padding: 0 12px; border: 1px solid var(--orange); border-radius: 6px; background: #fff; color: var(--orange); font-family: var(--f-body); font-weight: 600; font-size: 10.5px; }
+.btn-copy:hover { background: var(--orange-soft); }
+.wg-grid { display: grid; gap: 7px; margin-top: 18px; }
+.wg-grid .row2 { gap: 7px 16px; }
+.row3 { display: grid; grid-template-columns: minmax(0, 286fr) minmax(0, 135fr) minmax(0, 135fr); gap: 7px 16px; }
+.uwv-note { margin-top: 20px; min-height: 39px; padding-block: 8px; }
+.uwv-note b.o { color: var(--orange); font-weight: 600; }
+.uwv-note + .wg-grid { margin-top: 17px; }
+.wg-sec { margin-top: 22px; }
+.wg-sec + .wg-sec { margin-top: 17px; }
+.wg-sec .lbl { display: block; font-weight: 600; font-size: 12.5px; color: var(--ink); margin-bottom: 0; }
+.wg-check { margin-top: 5px; }
+.wg-check input, .pay-check input { width: 15px; height: 15px; min-width: 15px; background-size: 10px 10px; }
+.wg-opm { margin: 16px 0 0 28px; }
+.wg-opm textarea { height: 104px; }
+@media (max-width: 640px) { .row3 { grid-template-columns: 1fr 1fr; } .row3 > :first-child { grid-column: 1 / -1; } .wg-opm { margin-left: 0; } }
+.maskw { position: relative; }
+.mask { position: absolute; z-index: 1; left: 12px; top: 0; height: 34px; display: flex; align-items: center; font-size: 11.5px; color: #b5b5b5; white-space: pre; pointer-events: none; opacity: 0; }
+.mask i { font-style: normal; color: transparent; }
+.maskw:focus-within .mask { opacity: 1; }
+.maskw:focus-within input::placeholder { color: transparent; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.field label .opt { font-weight: 400; color: var(--muted); margin-left: 4px; }
+.slot[disabled] { opacity: .45; cursor: not-allowed; }
+.slot[disabled]:hover { border-color: #e5e5e5; }
+.pg-max { font-size: 10.5px; color: var(--muted); margin: 12px 0 0; line-height: 1.45; }
+
+/* ===== Stap 4: controle (maten uit "Opleiding 7 controle uwv".pdf) ===== */
+.ctl-sec { margin-top: 19px; }
+.ctl > .ctl-sec:first-child { margin-top: 0; }
+.ctl-h { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; min-height: 16px; }
+.ctl-h h5 { margin: 0; font-size: 12.5px; font-weight: 700; color: var(--black); }
+.ctl-h h5 .opt { font-weight: 400; color: var(--muted); font-size: 10.5px; }
+.ctl-edit { border: 0; background: none; padding: 0; color: var(--orange); font-family: var(--f-body); font-size: 10.5px; display: inline-flex; align-items: center; gap: 5px; }
+.ctl-edit svg { width: 11px; height: 11px; }
+.ctl-edit:hover { text-decoration: underline; }
+.ctl-card { border: 1px solid #e5e5e5; border-radius: 6px; overflow: hidden; }
+.ctl-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 33px; padding: 7px 14px; border-bottom: 1px solid #f3f3f3; font-size: 10.5px; color: var(--black); }
+.ctl-card > .ctl-row:last-child { border-bottom: 0; }
+.ctl-row b { font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+.ctl-row.g b { color: var(--green); font-weight: 400; }
+.ctl-row .p { color: #7e7e7e; }
+.ctl-row.multi { align-items: flex-start; padding-block: 10px; }
+.ctl-row.multi b { line-height: 1.45; }
+.ctl-acts { display: inline-flex; align-items: center; gap: 14px; }
+.ctl-cancel { border: 0; background: none; padding: 0; color: var(--muted); font-family: var(--f-body); font-size: 10.5px; }
+.ctl-cancel:hover { text-decoration: underline; }
+.ctl-row.edit { align-items: flex-start; padding: 6px 14px; }
+.ctl-row.edit > label { padding-top: 8px; font-size: 10.5px; color: var(--black); }
+.ed { width: 58%; flex: none; display: flex; flex-direction: column; gap: 4px; }
+.ed .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ed input { width: 100%; height: 34px; border: 1px solid var(--line); border-radius: 4px; padding: 0 11px; font: inherit; font-size: 11.5px; color: var(--black); background: #fff; }
+.ed input::placeholder { color: var(--placeholder); }
+.ed input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(243,112,34,.15); }
+.ed input.bad { border-color: var(--error); }
+.ed .err { color: var(--error); font-size: 10.5px; }
+@media (max-width: 640px) { .ctl-row.edit { flex-direction: column; gap: 4px; } .ed { width: 100%; } .ctl-row.edit > label { padding-top: 0; } }
+.ctl-tot { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 37px; padding: 0 14px; background: #f6f6f6; border-top: 1px solid #e4e4e4; font-weight: 700; font-size: 12.5px; color: var(--black); }
+.swap { height: 25px; padding: 0 10px; border: 1px solid #f7b48c; border-radius: 4px; background: #fff; color: var(--orange); font-family: var(--f-body); font-size: 9px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.swap svg { width: 11px; height: 11px; }
+.swap:hover, .swap:active, .swap:focus-visible { background: var(--orange); border-color: var(--orange); color: #fff; }
+.ctl-note { margin-top: 21px; }
+.pb.on { border: 1px solid var(--orange); background: var(--orange-soft); border-radius: 6px; padding: 12px 14px 14px; }
+.field label.pb-row, label.pb-row { display: flex; gap: 12px; align-items: flex-start; }
+.pb-row span { flex: 1; }
+.pb-price { font-style: normal; color: var(--orange); font-weight: 700; font-size: 10.5px; white-space: nowrap; }
+.pb.on .pb-row span { color: var(--black); }
+.bl-h { font-weight: 700; font-size: 10.5px; color: var(--black); margin: 14px 0 8px; }
+.bl { background: #fff; border: 1px solid #f0f0f0; border-radius: 6px; }
+.bl-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 9px 14px; border-bottom: 1px solid #f0f0f0; font-size: 10.5px; color: var(--black); }
+.bl-row:last-child { border-bottom: 0; }
+.bl-row small { display: block; font-size: 8.5px; color: #8a8a8a; margin-top: 2px; }
+.bl-row b { font-weight: 700; white-space: nowrap; }
+label.akk { margin-top: 10px; }
+.ctl-h + #ctl-akk label.akk:first-child { margin-top: 0; }
+.check.dis { color: #bbbbbb; cursor: not-allowed; }
+.check.dis .req { color: #f0a3bf; }
+.check.dis input { background-color: #f2f2f2; border-color: #e2e2e2; cursor: not-allowed; }
+.lnk { border: 0; background: none; padding: 0; font: inherit; color: var(--orange); font-weight: 600; cursor: pointer; }
+.check.dis .lnk { color: #fabf9b; }
+.lnk:hover { text-decoration: underline; }
+.tc { border: 1px solid #e5e5e5; border-radius: 6px; margin-top: 14px; }
+.tc-head { width: 100%; border: 0; background: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; text-align: left; font-family: var(--f-body); }
+.tc-head strong { display: block; font-size: 10.5px; font-weight: 600; color: var(--black); }
+.tc-head small { display: block; font-size: 9.5px; color: #6f6f6f; margin-top: 2px; }
+.tc-lees { display: inline-flex; align-items: center; gap: 6px; color: var(--orange); font-weight: 600; font-size: 11px; white-space: nowrap; }
+.tc-lees svg { width: 13px; height: 13px; transition: transform .15s; }
+.tc.open .tc-lees svg { transform: rotate(180deg); }
+.tc-body { max-height: 170px; overflow-y: auto; border-top: 1px solid #f0f0f0; padding: 10px 14px 12px; font-size: 10.5px; line-height: 1.55; color: var(--muted); }
+.tc-body h6 { font-size: 11px; color: var(--black); margin: 10px 0 2px; }
+.tc-body p { margin: 0; }
+.tc-proto { font-style: italic; }
+.tc-end { margin-top: 12px !important; color: var(--green); font-weight: 600; }
+.info-box { margin-top: 20px; background: var(--blue-bg); border-radius: 6px; padding: 10px 14px; display: flex; gap: 12px; align-items: center; font-size: 10.5px; line-height: 1.45; color: var(--black); }
+.info-box svg { width: 14px; height: 14px; color: var(--blue); flex: none; }
+
+/* ===== Alleen voor het prototype: terug naar begin (eindschermen) ===== */
+.proto-end { margin-top: 22px; border: 1.5px dashed #f2b38e; background: #fffaf6; border-radius: 6px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px 16px; flex-wrap: wrap; }
+.proto-end > div { flex: 1 1 260px; min-width: 0; }
+.proto-end .tag { display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a5a3c; background: var(--orange-soft); border-radius: 3px; padding: 2px 6px; margin-bottom: 6px; }
+.proto-end p { margin: 0; font-size: 10.5px; line-height: 1.45; color: var(--muted); }
+.proto-end .btn { padding: 9px 16px; line-height: 1.4; white-space: nowrap; }
+
+/* Sidebar */
+.side { display: flex; flex-direction: column; gap: 20px; }
+.steps-card { padding: 18px 19px 18px; }
+.steps-card h3 { font-family: var(--f-head); font-weight: 700; font-size: 16px; line-height: 1.05; margin: 0 0 20px; color: var(--black); }
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+.step { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
+.dot { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; background: #eef0f3; color: #676767; margin-top: 1px; }
+.step strong { display: block; font-size: 12.5px; font-weight: 700; color: var(--black); }
+.step small { display: block; font-size: 10.5px; color: var(--muted-2); line-height: 1.45; margin-top: 3px; }
+.step.current .dot { background: var(--orange-dot); color: var(--orange); }
+.step.done .dot { background: var(--green-soft); color: var(--green); }
+.step.done .dot svg { width: 12px; height: 12px; stroke-width: 3; }
+.step.off strong, .step.off small { color: var(--faded); }
+.step.off .dot { background: #fafafa; color: var(--faded); }
+.after { border-top: 1px solid var(--divider); margin-top: 22px; padding-top: 20px; }
+.after strong { font-size: 12.5px; font-weight: 700; color: var(--black); }
+.after p { margin: 4px 0 0; font-size: 10.5px; color: var(--muted-2); }
+.help { background: var(--orange-soft); border-radius: 8px; padding: 18px 19px 20px; }
+.help h3 { font-family: var(--f-head); font-weight: 700; font-size: 16px; margin: 0 0 12px; color: var(--black); }
+.help p { margin: 0 0 10px; font-size: 12.5px; color: var(--muted); }
+.help .ln { display: flex; align-items: center; gap: 7px; color: var(--orange); font-weight: 700; font-size: 12.5px; margin-top: 8px; user-select: all; }
+
+/* CTA + footer */
+.foot-zone { position: relative; }
+.cta { position: relative; z-index: 1; background: var(--orange); color: #fff; border-radius: 6px; padding: 32px 32px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; box-shadow: 0 16px 30px -18px rgba(0,0,0,.4); max-width: 970px; margin-inline: auto; }
+.cta h2 { margin: 0; font-family: var(--f-brand); font-weight: 700; font-size: 19px; }
+.cta .btn { background: #fff; color: var(--orange); border-color: #fff; font-size: 12px; padding: 11px 30px; }
+.cta .btn:hover { background: #fff5ef; }
+footer { background: var(--purple); color: #fff; margin-top: -52px; padding-top: 112px; font-family: var(--f-brand); }
+.fcols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.fcols h3, .policies h3 { font-weight: 700; font-size: 19px; margin: 0 0 18px; }
+.fcols p { font-size: 12px; line-height: 1.45; margin: 0 0 18px; }
+.socials { display: flex; gap: 17px; font-size: 16px; }
+.policies { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; text-align: center; margin-top: 46px; }
+.policies h3 { margin-bottom: 12px; }
+.policies p { font-size: 12px; margin: 0; line-height: 1.45; }
+.policies a { text-decoration: underline; }
+.badges { background: #fff; border-radius: 4px; margin-top: 40px; padding: 16px; display: flex; justify-content: center; }
+.badges img { width: 360px; max-width: 100%; height: auto; display: block; }
+.wcag { text-align: center; font-size: 12px; max-width: 470px; margin: 34px auto 0; line-height: 1.45; }
+.legal { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; font-size: 11px; padding-block: 40px 32px; }
+.legal nav { display: flex; gap: 26px; flex-wrap: wrap; }
+.legal nav a { text-decoration: none; }
+.legal .right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.cookie { background: #fff; color: #3d5bd9; border: 0; border-radius: 5px; padding: 6px 22px; font-weight: 700; font-size: 11px; font-family: var(--f-brand); display: inline-flex; align-items: center; gap: 6px; }
+
+/* Toast */
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%) translateY(20px); background: #1d1d1f; color: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 50; max-width: calc(100vw - 32px); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.fade-in { }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .fade-in { animation: none; } * { transition: none !important; } }
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .header-card { left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); }
+  .hero-text { padding-inline: 24px; }
+}
+@media (max-width: 860px) {
+  .main { grid-template-columns: 1fr; }
+  .topbar ul { display: none; }
+  .topbar .wrap-wide { justify-content: flex-end; }
+  .fcols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .header-card { padding: 14px; flex-wrap: wrap; }
+  .logo { font-size: 23px; }
+  .logo svg { width: 38px; height: 35px; }
+  .head-btns .btn { padding: 9px 12px; }
+  .hero-text { padding: 170px 20px 44px; }
+  .fields, .row2 { grid-template-columns: 1fr; }
+  .choices { grid-template-columns: 1fr 1fr; }
+  .form-head, .form-body { padding-inline: 18px; }
+  .form-foot { margin-inline: 18px; }
+  .form-foot .btn { min-width: 0; flex: 1; }
+  .form-body h4 { font-size: 26px; }
+  .policies { grid-template-columns: 1fr; }
+  .legal .right { align-items: flex-start; }
+  .cta { padding: 24px 20px; }
+}
+@media (max-width: 440px) {
+  .head-btns { width: 100%; }
+  .head-btns .btn { flex: 1; }
+  .fcols { grid-template-columns: 1fr; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M8 14h2M14 14h2M8 17h2"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M6 3h11a1 1 0 0 1 1 1v13H7a2 2 0 0 0-2 2V4a1 1 0 0 1 1-1Z"/><path d="M5 19a2 2 0 0 0 2 2h11v-4M9 7h5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.1 6.1l1.4-2.3L20 15.5V19a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.3v.2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3a1.4 1.4 0 0 1 0 2l-6.7 6.7a1.4 1.4 0 0 1-2 0Z"/><circle cx="8" cy="8" r="1.3"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14M14 4l4 4-4 4M20 16H6M10 12l-4 4 4 4"/></symbol>
+  <symbol id="i-restart" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4.5v4h4"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="m7 14 5-5 5 5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8Z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.5"/><path d="M16.8 7.2v.1"/></symbol>
+  <symbol id="i-cookie" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 3 3 0 0 1-3-3 3 3 0 0 1-3-3 3 3 0 0 1-3-3Z"/><path d="M8.5 11.5v.1M12 15.5v.1M15.5 13v.1M8 16v.1"/></symbol>
+</svg>
+
+<div class="proto gutter" role="note">
+  <div class="wrap-wide">
+    <div><b>Prototype</b>Klikbare demo. Wat je invult blijft in je eigen browser en wordt nergens opgeslagen of verstuurd.</div>
+    <div class="proto-actions">
+      <button type="button" id="fill-demo">Vul voorbeeldgegevens in</button>
+      <button type="button" id="reset">Opnieuw beginnen</button>
+    </div>
+  </div>
+</div>
+
+<div class="topbar gutter">
+  <div class="wrap-wide">
+    <ul>
+      <li><svg class="i"><use href="#i-check-circle"/></svg>Verkorte Mbo opleidingen</li>
+      <li><svg class="i"><use href="#i-check-circle"/></svg>Gratis studieadvies</li>
+      <li><svg class="i"><use href="#i-check-circle"/></svg>Erkend met studiefinanciering</li>
+    </ul>
+    <div class="contact"><span>085-1307979</span><span>info@maascollege.nl</span></div>
+  </div>
+</div>
+
+<div class="hero-zone gutter">
+  <div class="wrap-wide" style="position:relative">
+    <div class="header-card">
+      <a class="logo" href="#" data-action="home" aria-label="Maas College, naar begin">
+        <svg viewBox="0 0 48 44" aria-hidden="true">
+          <circle cx="23" cy="6" r="5.5" fill="#f5a524"/>
+          <circle cx="7" cy="19" r="5.5" fill="#3f7fd8"/>
+          <circle cx="21" cy="20" r="6" fill="#6e57c7"/>
+          <circle cx="37" cy="20" r="6" fill="#d9233f"/>
+          <circle cx="15" cy="34" r="4.5" fill="#1d1d1f"/>
+          <circle cx="30" cy="35" r="5.5" fill="#2bb05e"/>
+        </svg>
+        <span><b>Maas</b> <span>College</span></span>
+      </a>
+      <div class="head-btns">
+        <button type="button" class="btn btn-solid" data-action="infodag"><svg class="i"><use href="#i-cal"/></svg>Informatiedag</button>
+        <button type="button" class="btn btn-solid" data-action="home"><svg class="i"><use href="#i-pen"/></svg>Aanmelden</button>
+      </div>
+    </div>
+    <div class="hero">
+      <canvas id="hero-art" aria-hidden="true"></canvas>
+      <div class="hero-text">
+        <p class="eyebrow">Aanmelden</p>
+        <h1>Aanmelden voor BOL, BBL of Flex opleiding</h1>
+        <div class="crumbs"><span>Home</span><span>/</span><span>Aanmelden voor BOL, BBL of Flex opleiding</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="gutter">
+  <section class="wrap intro" id="intro">
+    <h2 id="intro-title">Jouw volgende stap begint hier.</h2>
+    <p id="intro-text">Meld je aan voor een verkorte mbo-opleiding bij Maas College. Erkend, met studiefinanciering en gratis studieadvies.</p>
+  </section>
+
+  <div class="wrap main" id="aanmelden">
+    <form class="card form-card" id="form" novalidate>
+      <div class="form-head"><span class="num" id="head-num">1</span><h3 id="head-title">Wie ben je?</h3></div>
+      <div class="form-body" id="form-body"></div>
+      <div class="form-foot">
+        <button type="button" class="btn btn-ghost" id="back"><svg class="i"><use href="#i-left"/></svg>Terug</button>
+        <button type="submit" class="btn btn-solid" id="next">Verzenden<svg class="i"><use href="#i-right"/></svg></button>
+      </div>
+    </form>
+
+    <aside class="side">
+      <div class="card steps-card">
+        <h3>Inschrijven in 4 stappen, contact opnemen in 2</h3>
+        <ol class="steps" id="steps">
+          <li class="step" data-step="1"><span class="dot">1</span><div><strong>Vul je gegevens in</strong><small>Vertel ons wie je bent en hoe we je kunnen bereiken.</small></div></li>
+          <li class="step" data-step="2"><span class="dot">2</span><div><strong>Waarom ben je hier?</strong><small id="s2-sub">Kies wat je aanmelding betreft.</small></div></li>
+          <li class="step" data-step="3"><span class="dot">3</span><div><strong>Aanmelding en inschrijving</strong><small>Meld je aan bij een opleiding.</small></div></li>
+          <li class="step" data-step="4"><span class="dot">4</span><div><strong>Controle</strong><small>Controleer je gegevens en verzend.</small></div></li>
+        </ol>
+        <div class="after"><strong>En daarna?</strong><p id="after-text">Wij nemen contact met je op om je aanmelding te bespreken.</p></div>
+      </div>
+      <div class="help">
+        <h3>Kom je er niet uit?</h3>
+        <p>We helpen je graag met je aanmelding.</p>
+        <div class="ln"><svg class="i"><use href="#i-phone"/></svg>06-38501294</div>
+        <div class="ln"><svg class="i"><use href="#i-mail"/></svg>intake@maascollege.nl</div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<div class="foot-zone">
+  <div class="gutter">
+    <div class="cta">
+      <h2>Wacht niet langer! Meld je aan!</h2>
+      <button type="button" class="btn" data-action="home">Ik wil mij aanmelden</button>
+    </div>
+  </div>
+  <footer class="gutter">
+    <div class="wrap-wide" style="max-width:954px">
+      <div class="fcols">
+        <div><h3>Pagina’s</h3></div>
+        <div><h3>Opleidingen</h3></div>
+        <div><h3>Informatie</h3></div>
+        <div>
+          <h3>Over ons</h3>
+          <p>Wij willen een voorbeeld zijn voor anderen en laten zien dat hard werken en studeren loont. Op Maas College staat geloof in eigen kracht en kunnen centraal.</p>
+          <div class="socials" aria-label="Contact en social media">
+            <svg class="i"><use href="#i-phone"/></svg><svg class="i"><use href="#i-mail"/></svg><svg class="i"><use href="#i-fb"/></svg><svg class="i"><use href="#i-ig"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="policies">
+        <div><h3>Privacybeleid</h3><p>U kunt deze opvragen bij het Maas College via<br><a href="#" data-action="noop">info@maascollege.nl</a></p></div>
+        <div><h3>Klachtenprocedure</h3><p>U kunt deze opvragen bij het Maas College via<br><a href="#" data-action="noop">klachten@maascollege.nl</a></p></div>
+        <div><h3>Examenreglement</h3><p>U kunt deze opvragen bij het Maas College via<br><a href="#" data-action="noop">examenbureau@maascollege.nl</a></p></div>
+      </div>
+      <div class="badges"><img src="data:image/png;base64,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" alt="Keurmerken: Wij leiden vakmensen op, NRTO keurmerk, Ministerie van Onderwijs, Cultuur en Wetenschap" width="360" height="90"></div>
+      <p class="wcag">Wij bouwen deze website volgens WCAG 2.1 AA (EN 301 549 v3.2.1) en verwerken je persoonsgegevens volgens de AVG. Kom je iets tegen dat niet werkt of niet toegankelijk is? Laat het ons weten via <a href="#" data-action="noop">info@maascollege.nl</a>.</p>
+      <div class="legal">
+        <nav><a href="#" data-action="noop">Cookiebeleid</a><a href="#" data-action="noop">Gedragscode</a><a href="#" data-action="noop">Algemene voorwaarden</a></nav>
+        <div class="right">
+          <span>© 2026 Maas College. Alle rechten voorbehouden.</span>
+          <button type="button" class="cookie" data-action="noop"><svg class="i"><use href="#i-cookie"/></svg>Cookie voorkeur</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="modal-ov" id="tel-modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title" tabindex="-1"></div>
+</div>
+
+<div class="modal-ov" id="lw-modal" hidden>
+  <div class="lw" role="dialog" aria-modal="true" aria-labelledby="lw-title" tabindex="-1"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  // ================= Data =================
+  const DIPLOMAS = ["Anders", "Associate Degree (AD)", "Doctoraal", "Geen", "HAVO", "HBO Bachelor", "HBO Master", "LBO", "MAVO", "MBO 1", "MBO 2", "MBO 3", "MBO 4", "VMBO-BB", "VMBO-GL", "VMBO-KB", "VMBO-TL", "VWO (Atheneum)", "VWO (Gymnasium)", "WO Bachelor", "WO Master"]
+    .map(v => ({ value: v, label: v }));
+  const LOCATIES = ["Amsterdam", "Breda", "Eindhoven", "Rotterdam", "Utrecht", "Zwolle"]
+    .map(v => ({ value: v, label: v, sub: "Hier zijn nog geen open dagen gepland." }));
+  const ONDERWERPEN = ["Opleiding", "Kennismaking", "Opleidingskosten", "AI Chasers", "Mijn gegevens", "Klacht"]
+    .map(v => ({ value: v, label: v }));
+  // Hoe het onderwerp in de bevestigingszin staat ("je vraag over …")
+  const ONDERWERP_ZIN = { "Opleiding": "een opleiding", "Kennismaking": "kennismaking", "Opleidingskosten": "opleidingskosten", "AI Chasers": "AI Chasers", "Mijn gegevens": "je gegevens", "Klacht": "je klacht" };
+  const TEL_ZIN = { "Opleiding": "je opleiding", "Kennismaking": "kennismaking", "Opleidingskosten": "opleidingskosten", "AI Chasers": "AI Chasers", "Mijn gegevens": "je gegevens", "Klacht": "je klacht" };
+
+  // Stap 3 opleiding: aanmelding & inschrijving
+  const STARTS = ["November 2026", "Februari 2027"].map(v => ({ value: v, label: v }));
+  const LOCS = ["Amsterdam", "Breda", "Eindhoven", "Rotterdam", "Utrecht", "Zwolle"].map(v => ({ value: v, label: v }));
+  const OPLEIDINGEN = [
+    ["Apothekersassistent", ["Apothekersassistent (APH) - MBO 4"]],
+    ["Business Services", ["Allround Assistant Business Services (AABS) - MBO 3", "Assistant Business Services (ABS) - MBO 2", "Business Administration & Control Specialist (BACS) - MBO 4", "Legal, Insurance & HR Services Specialist (LIHR) - MBO 4", "Marketing & Communication Specialist (MCS) - MBO 4", "Office & Management Support Specialist (MCS) - MBO 4"]],
+    ["Dienstverlening", ["Helpende Zorg en Welzijn (HZEW) - MBO 2", "Medewerker facilitaire dienstverlening (MFD) - MBO 2"]],
+    ["Doktersassistent", ["Doktersassistent (DOK) - MBO 4"]],
+    ["Maatschappelijke Zorg", ["Begeleider maatschappelijke zorg (BMZ) - MBO 3", "Persoonlijk begeleider specifieke doelgroepen (PBSD) - MBO 4"]],
+  ].flatMap(([g, items]) => [{ group: g }, ...items.map(v => ({ value: v, label: v }))]);
+  // Fictief lesgeld per opleiding (BACS zoals in het ontwerp: € 7.425,-)
+  const LESGELD = { APH: 7950, AABS: 6600, ABS: 5940, BACS: 7425, LIHR: 7425, MCS: 7425, HZEW: 5940, MFD: 5940, DOK: 7950, BMZ: 6600, PBSD: 7425 };
+  const HOE = ["In termijnen", "In een keer"].map(v => ({ value: v, label: v }));
+  const METHODES = ["Digitale betaallink", "Automatische incasso"];
+  const oplCode = v => { const m = /\(([^)]+)\)\s*-\s*(MBO \d)/.exec(v || ""); return m ? { code: m[1], niveau: m[2] } : null; };
+  const eur = n => { const [i, d] = n.toFixed(2).split("."); const int = i.replace(/\B(?=(\d{3})+(?!\d))/g, "."); return d === "00" ? `€ ${int},-` : `€ ${int},${d}`; };
+  const BETALERS = ["Mijn werkgever betaalt", "Mijn gemeente betaalt", "Het UWV betaalt", "Dit doe ik zelf"].map(v => ({ value: v, label: v }));
+
+  // Planner telefoongesprek
+  const DAGEN = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"], KORT = ["Ma", "Di", "Wo", "Do", "Vr"];
+  const MAANDEN = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
+  // Tijdvakken van 30 minuten: ochtend 09:00 t/m 12:30, middag 13:00 t/m 16:00 (lunch 12:30–13:00)
+  const ALL_SLOTS = { ochtend: ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00"], middag: ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30"] };
+  // Maandag 26 oktober precies zoals in het ontwerp; de andere dagen krijgen een vaste, fictieve beschikbaarheid
+  const FIXED_SLOTS = { "2026-10-26": { ochtend: ["09:00", "09:30", "11:00"], middag: ["13:00", "14:30", "15:00", "15:30"] } };
+  const START_WEEK = new Date(2026, 9, 26); // maandag 26 oktober 2026 (week 44), zoals in het ontwerp
+
+  const REASONS = [
+    { id: "open-dag", icon: "i-pin", title: "Open dag", sub: "Aanmelden voor een open dag" },
+    { id: "opleiding", icon: "i-book", title: "Opleiding", sub: "Aanmelden voor een opleiding" },
+    { id: "telefoongesprek", icon: "i-phone", title: "Telefoongesprek", sub: "Een terugbelverzoek achterlaten" },
+    { id: "vraag", icon: "i-info", title: "Vraag", sub: "Meer informatie opvragen" },
+  ];
+
+  // ================= State (alleen in geheugen, prototype) =================
+  const blank = () => ({
+    step: 1,              // 1 = contact, 2 = waarom, 3 = vervolg (nog uit te werken)
+    done: null,           // "open-dag" of "vraag" zodra die is afgerond
+    contact: { voornaam: "", achternaam: "", email: "", telefoon: "", nieuwsbrief: false },
+    reason: null,
+    openDag: { niveau: "", diploma: "", locatie: "" },
+    vraag: { onderwerp: "", tekst: "" },
+    ctl: { boeken: false, mode: "", read: false, open: false, akk1: false, akk2: false, mail: false, edit: { p: false, o: false } },
+    opleiding: { niveau: "", diploma: "" },
+    inschr: { start: "", locatie2: "", opl: "", momenten: [], leerweg: "", leerwerkplek: "", geboortedatum: "", postcode: "", huisnummer: "", betaalt: "", hoe: "", methode: "", akkoord: false,
+      wg: { kenmerk: "", bedrijf: "", adres: "", huisnr: "", toev: "", plaats: "", postcode: "", naam: "", email: "", offerte: false, opmerking: "", verklaring: false },
+      gm: { kenmerk: "", bedrijf: "", adres: "", huisnr: "", toev: "", plaats: "", postcode: "", naam: "", email: "", offerte: false, opmerking: "", verklaring: false },
+      uwv: { kenmerk: "", bedrijf: "", adres: "", huisnr: "", toev: "", plaats: "", postcode: "", naam: "", email: "", offerte: false, opmerking: "", verklaring: false } },
+    tel: { momenten: [], onderwerp: "" },   // momenten: "jjjj-mm-dd|uu:mm"
+  });
+  let S = blank();
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const form = $("#form"), body = $("#form-body"), back = $("#back"), next = $("#next");
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const reasonObj = () => REASONS.find(x => x.id === S.reason);
+
+  let toastT;
+  function toast(msg) {
+    const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2800);
+  }
+  const scrollTo = sel => $(sel).scrollIntoView({ behavior: "smooth", block: "start" });
+
+  // ================= Datum- en tijdvakhulpjes =================
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const pad = n => String(n).padStart(2, "0");
+  const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const parseIso = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const weekNr = d => { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const wd = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - wd); const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1)); return Math.ceil(((t - y0) / 864e5 + 1) / 7); };
+  const endTime = s => { let [h, m] = s.split(":").map(Number); m += 30; if (m >= 60) { h++; m -= 60; } return `${pad(h)}:${pad(m)}`; };
+  const slotLabel = s => `${s} - ${endTime(s)}`;
+  const dayIdx = d => (d.getDay() + 6) % 7;
+  const dayName = d => `${DAGEN[dayIdx(d)]} ${d.getDate()} ${MAANDEN[d.getMonth()]} ${d.getFullYear()}`;
+  const dayNameShort = d => `${DAGEN[dayIdx(d)]} ${d.getDate()} ${MAANDEN[d.getMonth()]}`;
+  const mondayOf = d => addDays(d, -dayIdx(d));
+  const weekRange = mon => { const fri = addDays(mon, 4); return mon.getMonth() === fri.getMonth() ? `${mon.getDate()}–${fri.getDate()} ${MAANDEN[fri.getMonth()]} ${fri.getFullYear()}` : `${mon.getDate()} ${MAANDEN[mon.getMonth()]} – ${fri.getDate()} ${MAANDEN[fri.getMonth()]} ${fri.getFullYear()}`; };
+  const partOf = t => t < "12:30" ? "ochtend" : "middag";
+  // Fictieve beschikbaarheid per dag: steeds dezelfde uitkomst voor dezelfde datum, ongeveer 2 op de 3 tijdvakken vrij
+  function available(d) {
+    const k = iso(d);
+    if (FIXED_SLOTS[k]) return FIXED_SLOTS[k];
+    let h = [...k].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+    const rnd = () => (h = (h * 1103515245 + 12345) >>> 0) % 100;
+    const pick = list => { const out = list.filter(() => rnd() >= 35); return out.length ? out : [list[rnd() % list.length]]; };
+    return { ochtend: pick(ALL_SLOTS.ochtend), middag: pick(ALL_SLOTS.middag) };
+  }
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  function groupByDay(keys) {
+    const m = new Map();
+    for (const k of [...keys].sort()) { const [d, t] = k.split("|"); if (!m.has(d)) m.set(d, []); m.get(d).push(t); }
+    return [...m].map(([d, times]) => ({ key: d, date: parseIso(d), times }));
+  }
+  const momenten = n => `${n} ${n === 1 ? "moment" : "momenten"}`;
+  const beschikbaar = n => `${n} ${n === 1 ? "Beschikbaar moment" : "Beschikbare momenten"}`;
+  function partsLabel(times, fn) {
+    const o = times.filter(t => partOf(t) === "ochtend").length, mi = times.length - o, out = [];
+    if (o) out.push(`Ochtend · ${fn(o)}`);
+    if (mi) out.push(`${out.length ? "middag" : "Middag"} · ${fn(mi)}`);
+    return out.join(", ");
+  }
+  const telSummary = keys => groupByDay(keys).flatMap(g => g.times.map(t => `${dayNameShort(g.date)}, ${slotLabel(t)}`)).join(" | ");
+
+  // ================= Bouwstenen =================
+  function selectField(id, label, options, value, opt = {}) {
+    const cur = options.find(o => !o.group && o.value === value);
+    let oi = 0;
+    return `
+      <div class="field" data-field="${id}">
+        <label id="l-${id}" for="s-${id}">${label} <span class="req">*</span></label>
+        <div class="sel" data-sel="${id}">
+          <button type="button" class="sel-btn ${cur ? "" : "is-ph"}" id="s-${id}" aria-haspopup="listbox" aria-expanded="false" aria-controls="lb-${id}" ${opt.disabled ? "disabled" : ""}>
+            <span>${cur ? esc(cur.label) : "Selecteer een optie"}</span><svg class="i chev"><use href="#i-down"/></svg>
+          </button>
+          <ul class="sel-list${opt.tall ? " tall" : ""}" role="listbox" id="lb-${id}" aria-labelledby="l-${id}" tabindex="-1" hidden>
+            <li class="ph" aria-hidden="true">${opt.listHead || "Selecteer een optie"}</li>
+            ${options.map(o => o.group ? `<li class="grp" aria-hidden="true">${esc(o.group)}</li>` : `<li role="option" id="o-${id}-${oi++}" data-value="${esc(o.value)}" aria-selected="${o.value === value}">${esc(o.label)}${o.sub ? `<small>${esc(o.sub)}</small>` : ""}</li>`).join("")}
+          </ul>
+        </div>
+        ${opt.hint ? `<div class="hint" id="h-${id}" ${opt.disabled ? "" : "hidden"}>${opt.hint}</div>` : ""}
+        <div class="err" id="e-${id}" hidden></div>
+      </div>`;
+  }
+
+  // ================= Views =================
+  function viewContact() {
+    const c = S.contact;
+    const f = (id, label, ph, type = "text", ac = "") => `
+      <div class="field" data-field="${id}">
+        <label for="f-${id}">${label} <span class="req">*</span></label>
+        <input id="f-${id}" name="${id}" type="${type}" placeholder="${ph}" value="${esc(c[id])}" autocomplete="${ac}">
+        <div class="err" id="e-${id}" hidden></div>
+      </div>`;
+    return `
+      <h4>Hoe kunnen we je bereiken?</h4>
+      <p class="lead">We beginnen met je contactgegevens, zodat we je kunnen bereiken over je aanmelding.</p>
+      <div class="fields">
+        ${f("voornaam", "Voornaam", "Voornaam", "text", "given-name")}
+        ${f("achternaam", "Achternaam", "Achternaam", "text", "family-name")}
+        ${f("email", "E-mailadres", "johndoe@gmail.com", "email", "email")}
+        ${f("telefoon", "Telefoonnummer", "+31 6 123 45 678", "tel", "tel")}
+      </div>
+      <div class="newsletter">
+        <div class="title">Inschrijven voor de nieuwsbrief <span>(optioneel)</span></div>
+        <label class="check"><input type="checkbox" id="f-nieuwsbrief" ${c.nieuwsbrief ? "checked" : ""}>
+          <span>Ik ga akkoord met de <a href="#" data-action="noop">privacy verklaring</a> en je mag mijn e-mailadres gebruiken om mij te informeren over updates van mijn aanmelding, en op de hoogte te houden van opleidingen en andere aansluitende informatie.</span></label>
+      </div>`;
+  }
+
+  function viewReason() {
+    return `
+      <h4>Waarom ben je hier?</h4>
+      <p class="lead">Vertel ons wat je zoekt en wat je al hebt gedaan. Zo sturen we je naar de juiste plek.</p>
+      <div class="label-row" id="reason-label">Mijn aanmelding betreft <span class="req">*</span></div>
+      <div class="choices" role="radiogroup" aria-labelledby="reason-label">
+        ${REASONS.map(r => `
+          <label class="choice ${S.reason === r.id ? "selected" : ""}">
+            <input type="radio" name="reason" id="r-${r.id}" value="${r.id}" ${S.reason === r.id ? "checked" : ""}>
+            <svg class="i"><use href="#${r.icon}"/></svg>
+            <strong>${r.title}</strong><small>${r.sub}</small>
+          </label>`).join("")}
+      </div>
+      <div class="err" id="e-reason" hidden style="margin-top:10px"></div>
+      <div class="extra" id="extra">${viewExtra()}</div>`;
+  }
+
+  // Vervolgvragen die direct onder de keuzekaarten verschijnen
+  function viewExtra() {
+    if (S.reason === "open-dag") {
+      const o = S.openDag;
+      return `
+        <div class="row2">
+          ${selectField("niveau", "Wat is jouw hoogst opleidingsniveau?", DIPLOMAS, o.niveau)}
+          ${selectField("diploma", "Wat is jouw hoogst behaalde diploma?", DIPLOMAS, o.diploma)}
+        </div>
+        ${selectField("locatie", "Bij welke open dag zou je aanwezig willen zijn?", LOCATIES, o.locatie)}`;
+    }
+    if (S.reason === "opleiding") {
+      const o = S.opleiding;
+      return `
+        <div class="row2">
+          ${selectField("niveau", "Wat is jouw hoogst opleidingsniveau?", DIPLOMAS, o.niveau)}
+          ${selectField("diploma", "Wat is jouw hoogst behaalde diploma?", DIPLOMAS, o.diploma)}
+        </div>`;
+    }
+    if (S.reason === "vraag") {
+      const v = S.vraag;
+      return `
+        ${selectField("onderwerp", "Waar gaat je vraag over?", ONDERWERPEN, v.onderwerp)}
+        <div class="field" data-field="tekst">
+          <label for="f-tekst">Stel je vraag <span class="req">*</span></label>
+          <textarea id="f-tekst" name="tekst" placeholder="Beschrijf hier in het kort je vraag en we nemen zo spoedig mogelijk contact met je op.">${esc(v.tekst)}</textarea>
+          <div class="err" id="e-tekst" hidden></div>
+        </div>`;
+    }
+    if (S.reason === "telefoongesprek") {
+      const n = S.tel.momenten.length;
+      return `
+        <div class="field" data-field="momenten">
+          <label for="pick-tel">Wanneer wil je teruggebeld worden? <span class="req">*</span></label>
+          <button type="button" class="pick ${n ? "" : "is-ph"}" id="pick-tel" aria-haspopup="dialog"><svg class="i"><use href="#i-cal"/></svg><span>${n ? esc(telSummary(S.tel.momenten)) : "Nog geen momenten gekozen"}</span></button>
+          <div class="err" id="e-momenten" hidden></div>
+        </div>
+        ${selectField("onderwerp", "Waar gaat je vraag over?", ONDERWERPEN, S.tel.onderwerp)}`;
+    }
+    return "";
+  }
+
+  // Vast patroon voor de geboortedatum: wat nog niet getypt is, staat grijs in het veld
+  const DATE_TPL = "dd-mm-jjjj";
+  function updateDateMask(el) {
+    const m = el.parentElement.querySelector(".mask");
+    if (m) m.innerHTML = `<i>${esc(el.value)}</i>${DATE_TPL.slice(el.value.length)}`;
+  }
+
+  function viewInschr() {
+    const o = S.inschr, n = o.momenten.length;
+    const inp = (id, label, ph, extra = "") => `
+      <div class="field" data-field="${id}">
+        <label for="f-${id}">${label} <span class="req">*</span></label>
+        <input id="f-${id}" name="${id}" type="text" placeholder="${ph}" value="${esc(o[id])}" ${extra}>
+        <div class="err" id="e-${id}" hidden></div>
+      </div>`;
+    return `
+      <h4>Aanmelding &amp; inschrijving</h4>
+      <p class="lead">Kies je opleiding, je leerweg en wanneer je wilt starten. Daarna plan je een moment dat jou uitkomt.</p>
+      <div class="form3">
+        <div class="row2">
+          ${selectField("start", "Wanneer wil je starten met je opleiding?", STARTS, o.start)}
+          ${selectField("locatie2", "Waar wil je je opleiding volgen?", LOCS, o.locatie2)}
+        </div>
+        ${selectField("opl", "Ik heb interesse in deze opleiding", OPLEIDINGEN, o.opl, { disabled: !o.start, tall: true, hint: "Kies eerst een startmoment." })}
+        <div class="field" data-field="afspraak">
+          <label for="pick-intake">Plan een afspraak in <span class="req">*</span></label>
+          <button type="button" class="pick ${n ? "" : "is-ph"}" id="pick-intake" aria-haspopup="dialog"><svg class="i"><use href="#i-cal"/></svg><span>${n ? esc(telSummary(o.momenten)) : "Nog geen momenten gekozen"}</span></button>
+          <div class="err" id="e-afspraak" hidden></div>
+        </div>
+        <div class="field" data-field="leerweg">
+          <div class="lbl" id="l-leerweg">Voor welke leerweg kies je? <span class="req">*</span></div>
+          <div class="seg" role="radiogroup" aria-labelledby="l-leerweg">${["BBL", "BOL", "FLEX"].map(v => `<button type="button" role="radio" aria-checked="${o.leerweg === v}" class="${o.leerweg === v ? "sel" : ""}" data-leerweg="${v}">${v}</button>`).join("")}</div>
+          <div class="err" id="e-leerweg" hidden></div>
+        </div>
+        <div class="row2">
+          <div class="field" data-field="geboortedatum">
+            <label for="f-geboortedatum">Wat is je geboortedatum? <span class="req">*</span></label>
+            <div class="maskw"><span class="mask" aria-hidden="true"><i>${esc(o.geboortedatum)}</i>${DATE_TPL.slice(o.geboortedatum.length)}</span><input id="f-geboortedatum" name="geboortedatum" type="text" inputmode="numeric" placeholder="01-10-2026" value="${esc(o.geboortedatum)}" maxlength="10" autocomplete="bday" aria-describedby="m-geb"><span class="sr" id="m-geb">Typ alleen cijfers, bijvoorbeeld 23052004.</span></div>
+            <div class="err" id="e-geboortedatum" hidden></div>
+          </div>
+          ${inp("postcode", "Wat is je postcode?", "1234 AB", 'maxlength="7" autocomplete="postal-code"')}
+        </div>
+        <div class="row2">
+          <div class="field" data-field="huisnummer">
+            <label for="f-huisnummer">Wat is je huisnummer? <span class="req">*</span></label>
+            <div class="numw"><input id="f-huisnummer" name="huisnummer" type="text" inputmode="numeric" placeholder="123" value="${esc(o.huisnummer)}" maxlength="6">
+              <span class="spin"><button type="button" data-spin="1" tabindex="-1" aria-label="Huisnummer verhogen"><svg class="i"><use href="#i-up"/></svg></button><button type="button" data-spin="-1" tabindex="-1" aria-label="Huisnummer verlagen"><svg class="i"><use href="#i-down"/></svg></button></span></div>
+            <div class="err" id="e-huisnummer" hidden></div>
+          </div>
+          <div class="field" data-field="toevoeging">
+            <label for="f-toevoeging">Toevoeging <span class="opt">(optioneel)</span></label>
+            <input id="f-toevoeging" name="toevoeging" type="text" placeholder="A" value="${esc(o.toevoeging || "")}" maxlength="6" autocomplete="address-line2">
+          </div>
+        </div>
+        ${selectField("betaalt", "Wie betaalt jouw studie?", BETALERS, o.betaalt, { listHead: "Wie betaalt jouw studie?" })}
+        <div id="pay-wrap">${viewPay()}</div>
+      </div>`;
+  }
+
+  // Zelf betalen: betaalwijze, lesgeld, betaalmethode en akkoord
+  // Werkgever betaalt: gegevens werkgever, offerte en verklaring
+  const isGm = () => S.inschr.betaalt === "Mijn gemeente betaalt";
+  const isUwv = () => S.inschr.betaalt === "Het UWV betaalt";
+  const pk = () => isGm() ? "gm" : isUwv() ? "uwv" : "wg";
+  const isOrg = () => ["Mijn werkgever betaalt", "Mijn gemeente betaalt", "Het UWV betaalt"].includes(S.inschr.betaalt);
+  const WG_REQ = ["bedrijf", "adres", "huisnr", "plaats", "postcode", "naam", "email"];
+  // Bij het UWV is er geen naam van bedrijf of gemeente
+  const wgReq = () => isUwv() ? WG_REQ.filter(k => k !== "bedrijf") : WG_REQ;
+  const wgComplete = () => wgReq().every(k => String(S.inschr[pk()][k]).trim());
+  function viewWerkgever() {
+    const w = S.inschr[pk()];
+    const f = (id, label, o = {}) => `
+      <div class="field" data-field="wg_${id}">
+        <label for="f-wg_${id}">${label} ${o.req === false ? (o.noOpt ? "" : '<span class="opt">(optioneel)</span>') : '<span class="req">*</span>'}</label>
+        <input id="f-wg_${id}" name="wg_${id}" type="${o.type || "text"}" placeholder="${o.ph || ""}" value="${esc(w[id])}" ${o.extra || ""}>
+        <div class="err" id="e-wg_${id}" hidden></div>
+      </div>`;
+    return `
+      <div class="wg">
+        <button type="button" class="btn-copy" data-wg-copy>Neem het adres over dat ik eerder heb ingevuld</button>
+        ${isUwv() ? `<div class="pay-note uwv-note"><span class="ic"><svg class="i"><use href="#i-info"/></svg></span><div>Betaling door het UWV wordt pas <b class="o">geaccepteerd</b> als de juiste stukken zijn aangeleverd.</div></div>` : ""}
+        <div class="wg-grid">
+          ${isUwv()
+            ? f("kenmerk", "Aanmeldkenmerk", { req: false, ph: "Zoals dossier-, aanvraagnummer, aanmelddatum, etc." })
+            : `<div class="row2">${f("kenmerk", "Aanmeldkenmerk", { req: false, ph: "Zoals dossier- of aanvraagnummer" })}${f("bedrijf", isGm() ? "Naam van gemeente" : "Bedrijfsnaam", { extra: 'autocomplete="organization"' })}</div>`}
+          <div class="row3">${f("adres", "Adres", { ph: "Bijvoorbeeld Kerkstraat" })}${f("huisnr", "Huisnummer", { extra: 'inputmode="numeric" maxlength="6"' })}${f("toev", "Toevoeging", { req: false, noOpt: true, extra: 'maxlength="6"' })}</div>
+          <div class="row2">${f("plaats", "Plaats")}${f("postcode", "Postcode", { extra: 'maxlength="7"' })}</div>
+          <div class="row2">${f("naam", "Naam contactpersoon")}${f("email", "E-mailadres contactpersoon", { type: "email", extra: 'autocomplete="off"' })}</div>
+        </div>
+        <div id="wg-extra">${viewWgExtra()}</div>
+      </div>`;
+  }
+  function viewWgExtra() {
+    const w = S.inschr[pk()];
+    if (!wgComplete()) return "";
+    return `
+      <div class="wg-sec">
+        <div class="lbl">Offerte aanvragen <span class="opt">(optioneel)</span></div>
+        <label class="check wg-check"><input type="checkbox" id="f-wg_offerte" ${w.offerte ? "checked" : ""}><span>Hierbij vraag ik een offerte aan bij Maas College, te versturen naar bovenstaande gegevens.</span></label>
+        ${w.offerte ? `<div class="field wg-opm"><label for="f-wg_opmerking">Opmerkingen / bijzonderheden <span class="opt">(optioneel)</span></label><textarea id="f-wg_opmerking" name="wg_opmerking" placeholder="Bijvoorbeeld: betaling in termijnen of inclusief boekenlijst.">${esc(w.opmerking)}</textarea></div>` : ""}
+      </div>
+      <div class="wg-sec field" data-field="wg_verklaring">
+        <div class="lbl">Verklaring betaling <span class="req">*</span></div>
+        <label class="check wg-check"><input type="checkbox" id="f-wg_verklaring" ${w.verklaring ? "checked" : ""}><span>Ik begrijp dat ik zelf verantwoordelijk blijf voor de betaling als ${isGm() ? "mijn gemeente" : isUwv() ? "het UWV" : "mijn werkgever"} niet betaalt. Maas College kan mij dan volgens de <a href="#" data-action="noop">voorwaarden</a> uitschrijven. Deze verklaring wordt vastgelegd in mijn kandidaatdossier.</span></label>
+        <div class="err" id="e-wg_verklaring" hidden></div>
+      </div>`;
+  }
+  function renderWgExtra(focusSel) {
+    const w = $("#wg-extra"); if (!w) return;
+    w.innerHTML = viewWgExtra();
+    if (focusSel) { const el = $(focusSel); if (el) el.focus({ preventScroll: true }); }
+  }
+  const fmtPostcode = (v, del) => {
+    const raw = v.toUpperCase().replace(/[^0-9A-Z]/g, "");
+    const digits = (raw.match(/^\d{0,4}/) || [""])[0];
+    const letters = digits.length === 4 ? raw.slice(4).replace(/[^A-Z]/g, "").slice(0, 2) : "";
+    return digits + (letters ? " " + letters : (!del && digits.length === 4 ? " " : ""));
+  };
+
+  function viewPay() {
+    const o = S.inschr;
+    if (isOrg()) return viewWerkgever();
+    if (o.betaalt !== "Dit doe ik zelf") return "";
+    let html = `<div class="pay">${selectField("hoe", "Hoe wil je betalen?", HOE, o.hoe)}`;
+    if (o.hoe) {
+      const c = oplCode(o.opl), prijs = (c && LESGELD[c.code]) || 7425;
+      const korting = Math.round(prijs * 10) / 100, eenmalig = prijs - korting, maand = prijs / 12;
+      const termijn = o.hoe === "In termijnen";
+      const i = id => `<svg class="i"><use href="#${id}"/></svg>`;
+      html += `
+        <p class="pay-help">${termijn
+          ? "Je betaalt het lesgeld in maandelijkse termijnen. Het termijnbedrag en het totaalbedrag horen bij de opleiding die je hebt gekozen en staan daar vermeld."
+          : "Je betaalt het lesgeld in één keer en krijgt 10% korting. Het bedrag hoort bij de opleiding die je hebt gekozen en staat daar vermeld."}</p>
+        <div class="pay-lbl">Wat kost jouw lesgeld?</div>
+        <div class="price">
+          <div class="pr"><span>Opleiding</span><b>${c ? `${esc(c.code)} | ${c.niveau}` : "Nog geen opleiding gekozen"}</b></div>
+          ${termijn
+            ? `<div class="pr"><span>Lesgeld</span><b>${eur(prijs)}</b></div><div class="pr"><span>Per maand</span><b>12 x ${eur(maand)}</b></div>`
+            : `<div class="pr"><span>Lesgeld</span><b><s>${eur(prijs)}</s></b></div><div class="pr"><span>Korting bij betaling in één keer (10%)</span><b class="g">-${eur(korting)}</b></div>`}
+          <div class="pr-tot"><div><strong>${termijn ? "Totaal in termijnen" : "Totaal in één keer"}</strong><small>${termijn ? "Totaal van 12 termijnen" : "Eenmalige betaling"}</small></div><div class="amt">${eur(termijn ? prijs : eenmalig)}</div></div>
+        </div>
+        ${termijn
+          ? `<div class="pay-note"><span class="ic">${i("i-tag")}</span><div>Betaal je in één keer? Dan krijg je <b>10% korting</b> en betaal je <b>${eur(eenmalig)}</b>. Zo bespaar je <b>${eur(korting)}</b>.<br><button type="button" class="pay-link" data-pay-once>Liever in één keer betalen.</button></div></div>`
+          : `<div class="pay-note ok"><span class="ic">${i("i-check")}</span><div>Goed bezig! Je bespaart <b>${eur(korting)}</b> ten opzichte van betalen in termijnen (${eur(prijs)}).</div></div>`}
+        <div class="field pay-m" data-field="methode">
+          <div class="lbl" id="l-methode">Kies een betaalmethode <span class="req">*</span></div>
+          <div class="seg two" role="radiogroup" aria-labelledby="l-methode">${METHODES.map(m => `<button type="button" role="radio" aria-checked="${o.methode === m}" class="${o.methode === m ? "sel" : ""}" data-methode="${m}">${m}</button>`).join("")}</div>
+          <div class="err" id="e-methode" hidden></div>
+        </div>
+        <div class="field" data-field="akkoord">
+          <label class="check pay-check"><input type="checkbox" id="f-akkoord" ${o.akkoord ? "checked" : ""}>
+            <span>Ik betaal mijn opleidingsgeld zelf en kies voor ${o.methode === "Digitale betaallink" ? "betaling via een digitale betaallink" : "automatische incasso"}. Lees de volledige <a href="#" data-action="noop">disclaimer</a> voordat je hier akkoord op geeft.</span></label>
+          <div class="err" id="e-akkoord" hidden></div>
+        </div>`;
+    }
+    return html + `</div>`;
+  }
+  function renderPay(focusSel) {
+    const w = $("#pay-wrap"); if (!w) return;
+    w.innerHTML = viewPay();
+    if (focusSel) { const el = $(focusSel); if (el) el.focus({ preventScroll: true }); }
+  }
+
+  // ================= Stap 4: controle =================
+  const INSCHRIJFGELD = 90, LEEROMGEVING = 75;
+  const BOEKEN = [
+    ["Context van sociaal werk", "9789037266894", 65.25],
+    ["Mensen en problematiek", "9789037266900", 65.25],
+    ["Communicatie en gedrag voor sociaal werk", "9789037266917", 92.5],
+    ["Methodisch handelen voor sociaal werk", "9789037266924", 65.25],
+    ["Professional sociaal werk", "9789037266931", 65.25],
+  ];
+  const BOEKEN_TOTAAL = BOEKEN.reduce((a, b) => a + b[2], 0);
+  const BETALER_KORT = { "Mijn werkgever betaalt": "Mijn werkgever", "Mijn gemeente betaalt": "Mijn gemeente", "Het UWV betaalt": "Het UWV", "Dit doe ik zelf": "Ik zelf" };
+  const ORG_TITEL = { "Mijn werkgever betaalt": "Werkgever gegevens", "Mijn gemeente betaalt": "Gemeente gegevens", "Het UWV betaalt": "UWV gegevens" };
+  const ctlMode = () => S.ctl.mode || (S.inschr.betaalt === "Dit doe ik zelf" && S.inschr.hoe === "In termijnen" ? "termijn" : "eenmalig");
+  const dash = v => (v && String(v).trim()) ? esc(v) : "-";
+  const icn = id => `<svg class="i"><use href="#${id}"/></svg>`;
+  const row = (label, value, cls = "") => `<div class="ctl-row ${cls}"><span>${label}</span><b>${value}</b></div>`;
+  const sec = (title, rows, edit, editing) => `
+    <div class="ctl-sec">
+      <div class="ctl-h"><h5>${title}</h5>${edit ? (editing
+        ? `<span class="ctl-acts"><button type="button" class="ctl-cancel" data-ctl-cancel="${edit}">Annuleren</button><button type="button" class="ctl-edit" data-ctl-save="${edit}">${icn("i-check")}Opslaan</button></span>`
+        : `<button type="button" class="ctl-edit" data-ctl-edit="${edit}">${icn("i-pen")}Wijzig</button>`) : ""}</div>
+      <div class="ctl-card">${rows}</div>
+    </div>`;
+  // Bewerkbare rij: dezelfde invoervakjes als eerder in het formulier
+  const einp = (id, value, o = {}) => `<input id="e-${id}" name="e_${id}" type="${o.type || "text"}" value="${esc(value || "")}" placeholder="${o.ph || ""}" ${o.extra || ""} aria-label="${o.aria || ""}">`;
+  const erow = (label, forId, inputs, errIds) => `
+    <div class="ctl-row edit"><label for="e-${forId}">${label}</label>
+      <div class="ed">${inputs}${errIds.map(id => `<div class="err" id="ee-${id}" hidden></div>`).join("")}</div></div>`;
+
+  function viewSecP() {
+    const c = S.contact, o = S.inschr, ed = S.ctl.edit.p;
+    const rows = ed
+      ? erow("Naam", "voornaam", `<div class="two">${einp("voornaam", c.voornaam, { ph: "Voornaam", aria: "Voornaam", extra: 'autocomplete="given-name"' })}${einp("achternaam", c.achternaam, { ph: "Achternaam", aria: "Achternaam", extra: 'autocomplete="family-name"' })}</div>`, ["voornaam", "achternaam"]) +
+        erow("E-mailadres", "email", einp("email", c.email, { type: "email", extra: 'autocomplete="email"' }), ["email"]) +
+        erow("Telefoonnummer", "telefoon", einp("telefoon", c.telefoon, { type: "tel", extra: 'autocomplete="tel"' }), ["telefoon"]) +
+        erow("Geboortedatum", "geboortedatum", einp("geboortedatum", o.geboortedatum, { ph: "dd-mm-jjjj", extra: 'inputmode="numeric" maxlength="10"' }), ["geboortedatum"]) +
+        erow("Postcode", "postcode", einp("postcode", o.postcode, { ph: "1234 AB", extra: 'maxlength="7"' }), ["postcode"]) +
+        erow("Huisnummer", "huisnummer", `<div class="two">${einp("huisnummer", o.huisnummer, { ph: "123", aria: "Huisnummer", extra: 'inputmode="numeric" maxlength="6"' })}${einp("toevoeging", o.toevoeging, { ph: "Toevoeging", aria: "Toevoeging", extra: 'maxlength="6"' })}</div>`, ["huisnummer"])
+      : row("Naam", esc(`${c.voornaam} ${c.achternaam}`.trim()) || "-") + row("E-mailadres", dash(c.email)) + row("Telefoonnummer", dash(c.telefoon)) +
+        row("Geboortedatum", dash(o.geboortedatum)) + row("Postcode", dash(o.postcode)) + row("Huisnummer", dash(`${o.huisnummer} ${o.toevoeging || ""}`.trim()));
+    return sec("Persoonlijke gegevens", rows, "p", ed);
+  }
+
+  function viewSecO() {
+    const o = S.inschr, org = o[pk()], ed = S.ctl.edit.o;
+    const naamLbl = isGm() ? "Naam van gemeente" : "Bedrijfsnaam";
+    const rows = ed
+      ? erow("Aanmeldkenmerk", "kenmerk", einp("kenmerk", org.kenmerk, { ph: "Optioneel" }), []) +
+        (isUwv() ? "" : erow(naamLbl, "bedrijf", einp("bedrijf", org.bedrijf), ["bedrijf"])) +
+        erow("Adres", "adres", einp("adres", org.adres, { ph: "Bijvoorbeeld Kerkstraat" }), ["adres"]) +
+        erow("Huisnummer", "huisnr", einp("huisnr", org.huisnr, { extra: 'inputmode="numeric" maxlength="6"' }), ["huisnr"]) +
+        erow("Toevoeging", "toev", einp("toev", org.toev, { extra: 'maxlength="6"' }), []) +
+        erow("Postcode", "opostcode", einp("opostcode", org.postcode, { ph: "1234 AB", extra: 'maxlength="7"' }), ["opostcode"]) +
+        erow("Plaats", "plaats", einp("plaats", org.plaats), ["plaats"]) +
+        erow("Naam contactpersoon", "naam", einp("naam", org.naam), ["naam"]) +
+        erow("E-mailadres contactpersoon", "oemail", einp("oemail", org.email, { type: "email" }), ["oemail"]) +
+        erow("Opmerkingen", "opmerking", einp("opmerking", org.opmerking, { ph: "Optioneel" }), [])
+      : row("Aanmeldkenmerk", dash(org.kenmerk)) + (isUwv() ? "" : row(naamLbl, dash(org.bedrijf))) +
+        row("Adres", dash(org.adres)) + row("Huisnummer", dash(org.huisnr)) + row("Toevoeging", dash(org.toev)) + row("Postcode", dash(org.postcode)) +
+        row("Plaats", dash(org.plaats)) + row("Naam contactpersoon", dash(org.naam)) + row("E-mailadres contactpersoon", dash(org.email)) +
+        row("Opmerkingen", dash(org.offerte ? org.opmerking : ""));
+    return sec(ORG_TITEL[o.betaalt], rows, "o", ed);
+  }
+
+  // Opslaan: dezelfde controles als in het formulier
+  function saveSec(key) {
+    const v = id => { const el = $("#e-" + id); return el ? el.value.trim() : ""; };
+    const errs = {};
+    const chk = (id, msg) => { if (msg) errs[id] = msg; };
+    if (key === "p") {
+      chk("voornaam", rules.voornaam(v("voornaam"))); chk("achternaam", rules.achternaam(v("achternaam")));
+      chk("email", rules.email(v("email"))); chk("telefoon", rules.telefoon(v("telefoon")));
+      chk("geboortedatum", inschrRules.geboortedatum(v("geboortedatum"))); chk("postcode", inschrRules.postcode(v("postcode")));
+      chk("huisnummer", inschrRules.huisnummer(v("huisnummer")));
+    } else {
+      if (!isUwv()) chk("bedrijf", inschrRules.wg_bedrijf(v("bedrijf")));
+      chk("adres", inschrRules.wg_adres(v("adres"))); chk("huisnr", inschrRules.wg_huisnr(v("huisnr")));
+      chk("opostcode", inschrRules.wg_postcode(v("opostcode"))); chk("plaats", inschrRules.wg_plaats(v("plaats")));
+      chk("naam", inschrRules.wg_naam(v("naam"))); chk("oemail", inschrRules.wg_email(v("oemail")));
+    }
+    $$(`#ctl-sec-${key} .ed .err`).forEach(e => { e.hidden = true; e.textContent = ""; });
+    $$(`#ctl-sec-${key} .ed input`).forEach(i => i.classList.remove("bad"));
+    const ids = Object.keys(errs);
+    if (ids.length) {
+      ids.forEach(id => { const e = $("#ee-" + id); if (e) { e.textContent = errs[id]; e.hidden = false; } const i = $("#e-" + id); if (i) i.classList.add("bad"); });
+      $("#e-" + ids[0]).focus(); return;
+    }
+    if (key === "p") {
+      Object.assign(S.contact, { voornaam: v("voornaam"), achternaam: v("achternaam"), email: v("email"), telefoon: v("telefoon") });
+      Object.assign(S.inschr, { geboortedatum: v("geboortedatum"), postcode: v("postcode").toUpperCase(), huisnummer: v("huisnummer"), toevoeging: v("toevoeging") });
+    } else {
+      const org = S.inschr[pk()];
+      Object.assign(org, { kenmerk: v("kenmerk"), adres: v("adres"), huisnr: v("huisnr"), toev: v("toev"), postcode: v("opostcode").toUpperCase(), plaats: v("plaats"), naam: v("naam"), email: v("oemail"), opmerking: v("opmerking") });
+      if (!isUwv()) org.bedrijf = v("bedrijf");
+      if (org.opmerking) org.offerte = true;
+    }
+    S.ctl.edit[key] = false; renderSec(key, "[data-ctl-edit]");
+    toast("Je wijzigingen zijn opgeslagen.");
+  }
+  function renderSec(key, focusSel) {
+    const w = $("#ctl-sec-" + key); if (!w) return;
+    w.innerHTML = key === "p" ? viewSecP() : viewSecO();
+    if (focusSel) { const el = w.querySelector(focusSel); if (el) el.focus({ preventScroll: true }); }
+  }
+
+  function viewBooks() {
+    const on = S.ctl.boeken;
+    return `
+      <div class="ctl-h"><h5>Papieren boeken <span class="opt">(optioneel)</span></h5></div>
+      <div class="pb ${on ? "on" : ""}">
+        <label class="check pb-row"><input type="checkbox" id="f-ctl-boeken" ${on ? "checked" : ""}>
+          <span>Ik wil ook de papieren boeken ontvangen. De digitale leeromgeving zit altijd bij je opleiding, Wil je daarnaast ook papieren boeken? Die bestellen we voor je bij.</span>
+          <em class="pb-price">+ ${eur(BOEKEN_TOTAAL)}</em></label>
+        ${on ? `<div class="bl-h">Boekenlijst</div><div class="bl">${BOEKEN.map(([t, isbn, pr]) => `<div class="bl-row"><div><span>${t}</span><small>ISBN ${isbn}</small></div><b>${eur(pr)}</b></div>`).join("")}</div>` : ""}
+      </div>`;
+  }
+
+  function viewCost() {
+    const c = oplCode(S.inschr.opl), prijs = (c && LESGELD[c.code]) || 7425;
+    const korting = Math.round(prijs * 10) / 100, boeken = S.ctl.boeken ? BOEKEN_TOTAAL : 0;
+    const termijn = ctlMode() === "termijn";
+    const totaal = INSCHRIJFGELD + prijs + LEEROMGEVING + boeken - (termijn ? 0 : korting);
+    return `
+      <div class="ctl-h"><h5>Wat kost jouw opleiding?</h5><button type="button" class="swap" data-swap>${icn("i-swap")}${termijn ? "Wijzig naar in één keer" : "Wijzig naar in termijnen"}</button></div>
+      <div class="ctl-card">
+        ${row('Inschrijfgeld <span class="p">(eenmalig)</span>', eur(INSCHRIJFGELD))}
+        ${termijn
+          ? row(`Lesgeld in termijnen <span class="p">(12 x ${eur(prijs / 12)})</span>`, eur(prijs))
+          : row("Lesgeld", eur(prijs)) + row("Korting bij betaling in één keer (10%)", `-${eur(korting)}`, "g")}
+        ${row("Digitale leeromgeving Maas College", eur(LEEROMGEVING))}
+        ${boeken ? row('Papieren boeken <span class="p">(optioneel en eenmalig)</span>', eur(boeken)) : ""}
+        <div class="ctl-tot"><span>${termijn ? "Totaal in termijnen" : "Totaal in één keer"}</span><span>${eur(totaal)}</span></div>
+      </div>
+      ${termijn
+        ? `<div class="pay-note ctl-note"><span class="ic">${icn("i-tag")}</span><div>Betaal je in één keer? Dan krijg je <b>10% korting</b> en betaal je <b>${eur(prijs - korting)}</b>. Zo bespaar je <b>${eur(korting)}</b>.<br><button type="button" class="pay-link" data-swap>Liever in één keer betalen.</button></div></div>`
+        : `<div class="pay-note ok ctl-note"><span class="ic">${icn("i-check")}</span><div><b>Goed bezig!</b> Je bespaart <b>${eur(korting)}</b> ten opzichte van betalen in termijnen (${eur(prijs)}).</div></div>`}`;
+  }
+
+  function viewAkkChecks() {
+    const k = S.ctl, dis = !k.read;
+    const lnk = `<button type="button" class="lnk" data-tc-open>voorwaarden</button>`;
+    return `
+      <label class="check akk ${dis ? "dis" : ""}"><input type="checkbox" id="f-akk1" ${k.akk1 ? "checked" : ""} ${dis ? "disabled" : ""}>
+        <span>Ik verklaar kennis te hebben genomen van de kosten van mijn opleiding en van de ${lnk} die daarop van toepassing zijn. <span class="req">*</span></span></label>
+      <label class="check akk ${dis ? "dis" : ""}"><input type="checkbox" id="f-akk2" ${k.akk2 ? "checked" : ""} ${dis ? "disabled" : ""}>
+        <span>Door dit formulier volledig in te vullen en te verzenden, verklaar ik dat ik de algemene voorwaarden aandachtig heb gelezen, daarvan kennis heb genomen en hiermee uitdrukkelijk akkoord ga. Ik begrijp en accepteer dat deze ${lnk} van toepassing zijn op de dienstverlening en/of overeenkomst waarop dit formulier betrekking heeft. <span class="req">*</span></span></label>`;
+  }
+
+  function viewTc() {
+    const k = S.ctl;
+    const art = [
+      ["Artikel 1 – Toepasselijkheid", "Deze voorwaarden gelden voor iedere aanmelding en inschrijving bij Maas College."],
+      ["Artikel 2 – Aanmelding en inschrijving", "Een aanmelding is vrijblijvend. Je bent pas ingeschreven als je het contract hebt getekend."],
+      ["Artikel 3 – Kosten en betaling", "De kosten van je opleiding staan in het overzicht hierboven. Betaal je in één keer, dan krijg je 10% korting op het lesgeld."],
+      ["Artikel 4 – Bedenktijd", "Na het tekenen van het contract heb je 14 dagen bedenktijd. In die periode kun je kosteloos afzien."],
+      ["Artikel 5 – Uitschrijving", "Wordt er niet betaald, dan kan Maas College je volgens deze voorwaarden uitschrijven."],
+      ["Artikel 6 – Extra kosten", "Verlengingen, extra herkansingen en vrijstellingen worden apart in rekening gebracht, zoals vermeld onder ‘Kosten als het nodig is’."],
+    ];
+    return `
+      <div class="tc ${k.open ? "open" : ""}">
+        <button type="button" class="tc-head" data-tc aria-expanded="${k.open}" aria-controls="tc-body">
+          <span><strong>Algemene voorwaarden Maas College</strong><small>${k.read ? "Je hebt de voorwaarden gelezen. Je kunt nu akkoord geven." : "Open en lees de voorwaarden helemaal door. Daarna kun je akkoord geven."}</small></span>
+          <span class="tc-lees">${k.open ? "Sluit voorwaarden" : "Lees voorwaarden"}${icn("i-down")}</span>
+        </button>
+        ${k.open ? `<div class="tc-body" id="tc-body" tabindex="0" aria-label="Algemene voorwaarden">
+          <p class="tc-proto">Voorbeeldtekst voor dit prototype. Hier komen de volledige algemene voorwaarden van Maas College.</p>
+          ${art.map(([h, t]) => `<h6>${h}</h6><p>${t}</p>`).join("")}
+          <p class="tc-end">Je bent aan het einde van de voorwaarden.</p></div>` : ""}
+      </div>`;
+  }
+
+  function viewControle() {
+    const c = S.contact, o = S.inschr, opl = S.opleiding;
+    const code = oplCode(o.opl), naamOpl = (o.opl || "").replace(/\s*-\s*MBO \d$/, "");
+    const momenten = groupByDay(o.momenten).flatMap(g => g.times.map(t => `${dayNameShort(g.date)} | ${slotLabel(t)}`));
+    const org = isOrg() ? o[pk()] : null;
+    let betaling = row("Wie betaalt jouw studie?", esc(BETALER_KORT[o.betaalt] || o.betaalt || "-"));
+    if (o.betaalt === "Dit doe ik zelf") betaling += row("Hoe wil je betalen?", dash(o.hoe)) + row("Betaalmethode", dash(o.methode));
+    return `
+      <h4>Controle</h4>
+      <p class="lead">Controleer je gegevens zorgvuldig op eventuele fouten voordat je je inschrijving afrondt.</p>
+      <div class="ctl">
+        <div id="ctl-sec-p">${viewSecP()}</div>
+        ${sec("Overige gegevens",
+          row("Inschrijving nieuwsbrief", c.nieuwsbrief ? "Ja" : "Nee") + row("Hoogst genoten opleidingsniveau", dash(opl.niveau)) +
+          row("Hoogst behaalde diploma", dash(opl.diploma)) + row("Aanmelding betreft", "Opleiding"))}
+        ${sec("Jouw opleidingsgegevens",
+          row("Opleiding", dash(naamOpl)) + row("Niveau", code ? code.niveau : "-") + row("Opgegeven startmoment", dash(o.start)) +
+          row("Locatie", dash(o.locatie2)) + row("Leerweg", dash(o.leerweg)) +
+          (o.leerweg === "BBL" || o.leerweg === "FLEX" ? row("Leerwerkplek", o.leerwerkplek === "ja" ? "Ja" : o.leerwerkplek === "nee" ? "Nee" : "-") : "") +
+          row("Voorkeur intakemoment", momenten.length ? momenten.map(esc).join("<br>") : "-", "multi"))}
+        ${sec("Betaling", betaling)}
+        ${org ? `<div id="ctl-sec-o">${viewSecO()}</div>` : ""}
+        <div class="ctl-sec" id="ctl-books">${viewBooks()}</div>
+        <div class="ctl-sec" id="ctl-cost">${viewCost()}</div>
+        ${sec("Kosten als het nodig is",
+          row("Reguliere uitloop", "Gratis", "g") + row('Verlenging 1 <span class="p">(duurt ca. 3 maanden)</span>', "€600,-") +
+          row('Verlenging 2 <span class="p">(duurt ca. 3 maanden)</span>', "€600,-") + row('Extra herkansing <span class="p">(vanaf de derde poging)</span>', "€60,-") +
+          row("Aanvraag vrijstelling", "€25,-"))}
+        <div class="ctl-sec field" data-field="akk">
+          <div class="ctl-h"><h5>Akkoordverklaring</h5></div>
+          <div id="ctl-akk">${viewAkkChecks()}</div>
+          <div id="ctl-tc">${viewTc()}</div>
+          <label class="check akk"><input type="checkbox" id="f-mail" ${S.ctl.mail ? "checked" : ""}><span>Je mag mijn e-mailadres gebruiken om mij op de hoogte te houden van opleidingen en andere relevante informatie.</span></label>
+          <div class="err" id="e-akk" hidden></div>
+        </div>
+        <div class="info-box">${icn("i-info")}<div><strong>Dit is een aanmelding, nog geen inschrijving.</strong><br>Na het versturen zit je nog nergens aan vast. Je schrijft je pas in als je het contract tekent.</div></div>
+      </div>`;
+  }
+
+  function viewOplDone() {
+    const naamOpl = esc((S.inschr.opl || "").replace(/\s*-\s*MBO \d$/, ""));
+    return `
+      <h4>Gefeliciteerd!</h4>
+      <p class="lead" style="margin-bottom:22px">Bedankt voor je aanmelding voor ${naamOpl}. We hebben je aanmelding goed ontvangen.</p>
+      <div class="notice-ok"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span>
+        <div><strong>Je aanmelding is verzonden.</strong> Je ontvangt een bevestiging per e-mail op ${esc(S.contact.email)}.</div></div>
+      <div class="next-title">Zo ziet het vervolg eruit</div>
+      <div class="next-box">
+        <div class="next-info"><svg class="i"><use href="#i-info"/></svg>
+          <div><strong>Je bent nog niet ingeschreven.</strong><br>Dat gebeurt pas als je na het intakegesprek het contract tekent. Daarna heb je nog 14 dagen bedenktijd.</div></div>
+        <ol class="timeline">
+          <li><span class="dot">1</span><div><strong>Je wordt gebeld</strong><small>We nemen zo spoedig mogelijk contact met je op om kennis te maken en je intakegesprek te plannen.</small></div></li>
+          <li><span class="dot">2</span><div><strong>Intakegesprek</strong><small>We bespreken samen je opleiding, je planning en wat je nodig hebt.</small></div></li>
+          <li><span class="dot">3</span><div><strong>Contract tekenen</strong><small>Pas nu schrijf je je officieel in bij Maas College.</small></div></li>
+          <li><span class="dot">4</span><div><strong>14 dagen bedenktijd</strong><small>Gaat in op de dag dat je het contract tekent. In die periode kun je kosteloos afzien.</small></div></li>
+        </ol>
+      </div>`;
+  }
+
+  function viewPlaceholder() {
+    const r = reasonObj();
+    return `
+      <h4>${r.title}</h4>
+      <p class="lead">Je hebt gekozen voor <strong>${r.title.toLowerCase()}</strong>: ${r.sub.toLowerCase()}.</p>
+      <div class="placeholder"><strong>Deze stap wordt nog uitgewerkt.</strong><br>Het vervolg voor “${r.title}” komt in een volgende versie van dit prototype. Gebruik <em>Terug</em> om een andere keuze te maken.</div>`;
+  }
+
+  function viewOpenDagDone() {
+    const loc = esc(S.openDag.locatie);
+    return `
+      <h4>Leuk dat je komt!</h4>
+      <p class="lead" style="margin-bottom:22px">Je bent aangemeld voor de open dag in ${loc}. Je maakt kennis met onze docenten, ziet hoe de lessen eruitzien en kunt al je vragen stellen.</p>
+      <div class="notice-ok"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span>
+        <div><strong>Je aanmelding is verzonden.</strong> Je ontvangt een bevestiging per e-mail op ${esc(S.contact.email)}.</div></div>
+      <div class="next-title">Zo ziet het vervolg eruit</div>
+      <div class="next-box">
+        <div class="next-info"><svg class="i"><use href="#i-info"/></svg>
+          <div><strong>Je zit nergens aan vast.</strong><br>Een open dag is gratis en vrijblijvend. Kun je toch niet komen? Laat het ons weten via de link in je bevestigingsmail.</div></div>
+        <ol class="timeline">
+          <li><span class="dot">1</span><div><strong>Je ontvangt een bevestiging</strong><small>Met de datum, de tijd en het adres van de open dag in ${loc}.</small></div></li>
+          <li><span class="dot">2</span><div><strong>Je bezoekt de open dag</strong><small>Maak kennis en stel al je vragen.</small></div></li>
+          <li><span class="dot">3</span><div><strong>Jij bepaalt de volgende stap</strong></div></li>
+        </ol>
+      </div>`;
+  }
+
+  function viewVraagDone() {
+    const email = esc(S.contact.email);
+    return `
+      <h4>Bedankt voor je vraag!</h4>
+      <p class="lead" style="margin-bottom:22px">We hebben je vraag goed ontvangen. Een van onze adviseurs bekijkt je vraag over ${esc(ONDERWERP_ZIN[S.vraag.onderwerp] || S.vraag.onderwerp.toLowerCase())} en neemt zo snel mogelijk contact met je op.</p>
+      <div class="notice-ok"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span>
+        <div><strong>Je vraag is verzonden.</strong> Je ontvangt een bevestiging per e-mail op ${email}.</div></div>
+      <div class="next-title">Zo ziet het vervolg eruit</div>
+      <div class="next-box">
+        <div class="next-info"><svg class="i"><use href="#i-info"/></svg>
+          <div><strong>Wanneer hoor je van ons?</strong><br>We reageren binnen 2 werkdagen, meestal per e-mail. Is je vraag makkelijker telefonisch te beantwoorden? Dan bellen we je.</div></div>
+        <ol class="timeline">
+          <li><span class="dot">1</span><div><strong>We bekijken je vraag</strong><small>Een adviseur leest je vraag en zoekt het juiste antwoord voor je uit.</small></div></li>
+          <li><span class="dot">2</span><div><strong>Je krijgt antwoord</strong><small>Per e-mail op ${email} of telefonisch op ${esc(S.contact.telefoon)}.</small></div></li>
+          <li><span class="dot">3</span><div><strong>Jij bepaalt de volgende stap</strong></div></li>
+        </ol>
+      </div>`;
+  }
+
+  function viewTelDone() {
+    const zin = esc(TEL_ZIN[S.tel.onderwerp] || S.tel.onderwerp.toLowerCase());
+    return `
+      <h4>Bedankt voor je terugbelverzoek!</h4>
+      <p class="lead" style="margin-bottom:22px">We hebben je terugbelverzoek goed ontvangen. We bellen je binnen een van je gekozen tijdvakken om je vraag over ${zin} te beantwoorden.</p>
+      <div class="notice-ok"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span>
+        <div><strong>Je terugbelverzoek is verzonden.</strong> Je ontvangt een bevestiging per e-mail op ${esc(S.contact.email)}.</div></div>
+      <div class="next-title">Zo ziet het vervolg eruit</div>
+      <div class="next-box">
+        <div class="next-info"><svg class="i"><use href="#i-info"/></svg>
+          <div><strong>Geen vaste belafspraak</strong><br>We bellen je binnen een van je gekozen tijdvakken. Lukt het niet om je te bereiken? Dan proberen we het op een ander moment nog een keer.</div></div>
+        <ol class="timeline">
+          <li><span class="dot">1</span><div><strong>We bellen je</strong><small>Binnen een van je gekozen tijdvakken, op ${esc(S.contact.telefoon)}.</small></div></li>
+          <li><span class="dot">2</span><div><strong>We beantwoorden je vragen</strong><small>Over ${zin}.</small></div></li>
+          <li><span class="dot">3</span><div><strong>Jij bepaalt de volgende stap</strong></div></li>
+        </ol>
+      </div>`;
+  }
+
+  // Alleen voor dit prototype: terug naar het begin op ieder eindscherm
+  const PROTO_END = `
+    <div class="proto-end" role="note">
+      <div><span class="tag">Alleen in dit prototype</span>
+        <p>Deze knop hoort niet bij de echte aanmelding. Hiermee begin je opnieuw met een leeg formulier, zodat je een andere route kunt bekijken.</p></div>
+      <button type="button" class="btn btn-ghost" data-action="proto-reset"><svg class="i"><use href="#i-restart"/></svg>Terug naar begin prototype</button>
+    </div>`;
+
+  // ================= Render =================
+  const INTRO = {
+    title: "Jouw volgende stap begint hier.",
+    text: "Meld je aan voor een verkorte mbo-opleiding bij Maas College. Erkend, met studiefinanciering en gratis studieadvies.",
+  };
+  // Teksten per afgeronde flow
+  const DONE = {
+    "open-dag": {
+      title: "Je bent aangemeld voor de open dag.",
+      text: "Bedankt voor je interesse in Maas College. Hieronder lees je wat er nu gaat gebeuren.",
+      head: "Aanmelding open dag verzonden",
+      view: () => viewOpenDagDone(),
+      s2: "Je aanmelding voor de open dag is verzonden.",
+      after: () => `We zien je graag op de open dag in ${S.openDag.locatie}.`,
+    },
+    "vraag": {
+      title: "Je vraag is binnen.",
+      text: "Bedankt voor je interesse in Maas College. Hieronder lees je wat er nu gaat gebeuren.",
+      head: "Vraag verzonden",
+      view: () => viewVraagDone(),
+      s2: "Je vraag is verzonden.",
+      after: () => "We reageren binnen 2 werkdagen op je vraag.",
+    },
+    "opleiding": {
+      title: "Je aanmelding is binnen.",
+      text: "Bedankt dat je voor Maas College kiest. Hieronder lees je wat er nu gaat gebeuren.",
+      head: "Aanmelding verzonden",
+      view: () => viewOplDone(),
+      s2: "Kies wat je aanmelding betreft.",
+    },
+    "telefoongesprek": {
+      title: "Je terugbelverzoek is binnen.",
+      text: "Bedankt voor je interesse in Maas College. Hieronder lees je wat er nu gaat gebeuren.",
+      head: "Terugbelverzoek verzonden",
+      view: () => viewTelDone(),
+      s2: "Je terugbelverzoek is verzonden.",
+    },
+  };
+
+  function render(focus = false) {
+    const done = S.done, step = S.step, D = DONE[done];
+    form.classList.toggle("is-done", !!done);
+
+    // Intro boven het formulier
+    $("#intro-title").textContent = D ? D.title : INTRO.title;
+    $("#intro-text").textContent = D ? D.text : INTRO.text;
+
+    // Kop van de formulierkaart
+    if (D) { $("#head-num").innerHTML = '<svg class="i"><use href="#i-check"/></svg>'; $("#head-title").textContent = D.head; }
+    else {
+      $("#head-num").textContent = step;
+      $("#head-title").textContent = step === 1 ? "Wie ben je?" : step === 2 ? "Waarom ben je hier?" : step === 3 ? "Aanmelding en inschrijving" : "Controle";
+    }
+
+    const inschr = step === 3 && S.reason === "opleiding";
+    form.classList.toggle("is-s3", !D && (inschr || (step === 4 && S.reason === "opleiding")));
+    body.innerHTML = D ? D.view() + PROTO_END : step === 1 ? viewContact() : step === 2 ? viewReason() : inschr ? viewInschr() : step === 4 ? viewControle() : viewPlaceholder();
+    body.classList.remove("fade-in"); void body.offsetWidth; body.classList.add("fade-in");
+    next.hidden = step > 4 || (step === 3 && !inschr);
+    next.innerHTML = (step === 4 && !D ? "Aanmelding versturen" : "Verzenden") + '<svg class="i"><use href="#i-right"/></svg>';
+
+    renderSidebar();
+
+    if (focus) { const first = body.querySelector("input, h4"); if (first) { if (first.tagName === "H4") first.tabIndex = -1; first.focus({ preventScroll: true }); } }
+  }
+
+  function renderSidebar() {
+    const done = S.done, step = S.step, D = DONE[done];
+    $$("#steps .step").forEach(li => {
+      const n = +li.dataset.step, dot = li.querySelector(".dot");
+      li.classList.remove("done", "current", "off");
+      const isDone = done === "opleiding" ? true : done ? n <= 2 : n < step;
+      if (isDone) { li.classList.add("done"); dot.innerHTML = '<svg class="i"><use href="#i-check"/></svg>'; }
+      else { dot.textContent = n; if (!done && n === step && n <= 2) li.classList.add("current"); }
+      if (n >= 3) {
+        // Stap 3 en 4 horen alleen bij "Opleiding"; bij de andere keuzes blijven ze vervaagd
+        if (done === "opleiding") { /* alles afgerond */ }
+        else if (!done && S.reason === "opleiding") { if (step === n) li.classList.add("current"); }
+        else li.classList.add("off");
+      }
+    });
+    $("#s2-sub").textContent = D ? D.s2 : "Kies wat je aanmelding betreft.";
+    $('#steps [data-step="4"] small').textContent = done === "opleiding" ? "Je aanmelding is verzonden." : "Controleer je gegevens en verzend.";
+    $("#after-text").textContent = "Wij nemen contact met je op om je aanmelding te bespreken.";
+  }
+
+  function renderExtra() {
+    const ex = $("#extra"); if (!ex) return;
+    ex.innerHTML = viewExtra();
+    ex.classList.remove("fade-in"); void ex.offsetWidth; ex.classList.add("fade-in");
+  }
+
+  // ================= Validatie =================
+  const rules = {
+    voornaam: v => v.trim() ? "" : "Vul je voornaam in.",
+    achternaam: v => v.trim() ? "" : "Vul je achternaam in.",
+    email: v => !v.trim() ? "Vul je e-mailadres in." : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? "" : "Dit e-mailadres klopt niet. Controleer of er een @ en een domein in staan.",
+    telefoon: v => !v.trim() ? "Vul je telefoonnummer in." : v.replace(/\D/g, "").length >= 10 ? "" : "Dit telefoonnummer is te kort. Gebruik minimaal 10 cijfers.",
+  };
+  function setErr(id, msg) {
+    const field = body.querySelector(`[data-field="${id}"]`), e = $("#e-" + id);
+    if (field) field.classList.toggle("invalid", !!msg);
+    if (e) { e.textContent = msg; e.hidden = !msg; }
+  }
+  function readContact() {
+    for (const k of ["voornaam", "achternaam", "email", "telefoon"]) { const el = $("#f-" + k); if (el) S.contact[k] = el.value; }
+    const nb = $("#f-nieuwsbrief"); if (nb) S.contact.nieuwsbrief = nb.checked;
+  }
+  function validateContact() {
+    readContact();
+    let firstBad = null;
+    for (const k in rules) { const m = rules[k](S.contact[k]); setErr(k, m); if (m && !firstBad) firstBad = k; }
+    if (firstBad) $("#f-" + firstBad).focus();
+    return !firstBad;
+  }
+  function validateOpenDag() {
+    let firstBad = null;
+    for (const k of ["niveau", "diploma", "locatie"]) {
+      const m = S.openDag[k] ? "" : "Dit veld is verplicht.";
+      setErr(k, m); if (m && !firstBad) firstBad = k;
+    }
+    if (firstBad) $("#s-" + firstBad).focus();
+    return !firstBad;
+  }
+  function validateOpleiding() {
+    let firstBad = null;
+    for (const k of ["niveau", "diploma"]) {
+      const m = S.opleiding[k] ? "" : "Dit veld is verplicht.";
+      setErr(k, m); if (m && !firstBad) firstBad = k;
+    }
+    if (firstBad) $("#s-" + firstBad).focus();
+    return !firstBad;
+  }
+  const req = v => v ? "" : "Dit veld is verplicht.";
+  const inschrRules = {
+    start: req, locatie2: req, opl: req, betaalt: req, leerweg: req, hoe: req, methode: req,
+    akkoord: v => v ? "" : "Geef akkoord om verder te gaan.",
+    wg_bedrijf: req, wg_adres: v => req(v.trim()), wg_plaats: v => req(v.trim()), wg_naam: v => req(v.trim()),
+    wg_huisnr: v => !v ? "Dit veld is verplicht." : +v > 0 ? "" : "Vul een geldig huisnummer in.",
+    wg_postcode: v => !v.trim() ? "Dit veld is verplicht." : /^\d{4}\s?[a-zA-Z]{2}$/.test(v.trim()) ? "" : "Vul een geldige postcode in, bijvoorbeeld 1234 AB.",
+    wg_email: v => !v.trim() ? "Dit veld is verplicht." : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? "" : "Dit e-mailadres klopt niet. Controleer of er een @ en een domein in staan.",
+    wg_verklaring: v => v ? "" : "Geef aan dat je deze verklaring begrijpt.",
+    afspraak: m => !m.length ? "Dit veld is verplicht." : m.length < 3 ? "Kies drie momenten voor je intakegesprek." : "",
+    geboortedatum: v => {
+      if (!v) return "Dit veld is verplicht.";
+      const m = /^(\d{2})-(\d{2})-(\d{4})$/.exec(v);
+      if (!m) return "Vul je geboortedatum in als dd-mm-jjjj.";
+      const d = new Date(+m[3], +m[2] - 1, +m[1]);
+      if (d.getDate() !== +m[1] || d.getMonth() !== +m[2] - 1 || d > new Date()) return "Deze geboortedatum bestaat niet. Controleer dag, maand en jaar.";
+      return "";
+    },
+    postcode: v => !v.trim() ? "Dit veld is verplicht." : /^\d{4}\s?[a-zA-Z]{2}$/.test(v.trim()) ? "" : "Vul een geldige postcode in, bijvoorbeeld 1234 AB.",
+    huisnummer: v => !v ? "Dit veld is verplicht." : +v > 0 ? "" : "Vul een geldig huisnummer in.",
+  };
+  function validateInschr() {
+    const o = S.inschr; let firstBad = null;
+    const order = ["start", "locatie2", "opl", "afspraak", "leerweg", "geboortedatum", "postcode", "huisnummer", "betaalt"];
+    if (o.betaalt === "Dit doe ik zelf") { order.push("hoe"); if (o.hoe) order.push("methode", "akkoord"); }
+    if (isOrg()) { order.push(...wgReq().map(k => "wg_" + k)); if (wgComplete()) order.push("wg_verklaring"); }
+    for (const k of order) {
+      let m = inschrRules[k](k === "afspraak" ? o.momenten : k.startsWith("wg_") ? o[pk()][k.slice(3)] : o[k]);
+      if (k === "opl" && !o.start) m = ""; // de hint "Kies eerst een startmoment." staat er al
+      setErr(k, m);
+      if ((m || (k === "opl" && !o.opl)) && !firstBad) firstBad = k;
+    }
+    if (firstBad) {
+      const el = firstBad === "afspraak" ? $("#pick-intake") : firstBad === "leerweg" ? $("[data-leerweg]") : firstBad === "methode" ? $("[data-methode]") : ["start", "locatie2", "opl", "betaalt", "hoe"].includes(firstBad) ? $("#s-" + firstBad) : $("#f-" + firstBad);
+      if (el && !el.disabled) el.focus(); else $("#s-start").focus();
+    }
+    return !firstBad;
+  }
+  function validateVraag() {
+    const ta = $("#f-tekst"); if (ta) S.vraag.tekst = ta.value;
+    const mO = S.vraag.onderwerp ? "" : "Dit veld is verplicht.";
+    const mT = S.vraag.tekst.trim() ? "" : "Dit veld is verplicht.";
+    setErr("onderwerp", mO); setErr("tekst", mT);
+    if (mO) $("#s-onderwerp").focus(); else if (mT) ta.focus();
+    return !mO && !mT;
+  }
+  function validateTel() {
+    const mM = S.tel.momenten.length ? "" : "Dit veld is verplicht.";
+    const mO = S.tel.onderwerp ? "" : "Dit veld is verplicht.";
+    setErr("momenten", mM); setErr("onderwerp", mO);
+    if (mM) $("#pick-tel").focus(); else if (mO) $("#s-onderwerp").focus();
+    return !mM && !mO;
+  }
+
+  // ================= Keuzelijst (eigen dropdown met subtekst) =================
+  let openSel = null;
+  function openList(sel) {
+    if (openSel && openSel !== sel) closeList(openSel);
+    const btn = sel.querySelector(".sel-btn"), list = sel.querySelector(".sel-list");
+    list.hidden = false; btn.setAttribute("aria-expanded", "true"); openSel = sel;
+    const opts = $$('[role="option"]', list);
+    setActive(sel, opts.find(o => o.getAttribute("aria-selected") === "true") || opts[0]);
+    list.focus({ preventScroll: true });
+  }
+  function closeList(sel, focusBtn = false) {
+    const btn = sel.querySelector(".sel-btn"), list = sel.querySelector(".sel-list");
+    list.hidden = true; btn.setAttribute("aria-expanded", "false");
+    if (openSel === sel) openSel = null;
+    if (focusBtn) btn.focus();
+  }
+  function setActive(sel, li) {
+    const list = sel.querySelector(".sel-list");
+    $$(".active", list).forEach(x => x.classList.remove("active"));
+    if (!li) return;
+    li.classList.add("active"); list.setAttribute("aria-activedescendant", li.id);
+    li.scrollIntoView({ block: "nearest" });
+  }
+  function choose(sel, li) {
+    const id = sel.dataset.sel, value = li.dataset.value;
+    if (S.step === 3 && S.reason === "opleiding") {
+      S.inschr[id] = value;
+      if (id === "start") { const b = $("#s-opl"); if (b) b.disabled = false; const h = $("#h-opl"); if (h) h.hidden = true; }
+    }
+    else if (S.reason === "open-dag") S.openDag[id] = value;
+    else if (S.reason === "opleiding") S.opleiding[id] = value;
+    else if (S.reason === "vraag") S.vraag[id] = value;
+    else if (S.reason === "telefoongesprek") S.tel[id] = value;
+    $$('[role="option"]', sel).forEach(o => o.setAttribute("aria-selected", String(o === li)));
+    const btn = sel.querySelector(".sel-btn");
+    btn.querySelector("span").textContent = li.firstChild.textContent;
+    btn.classList.remove("is-ph");
+    setErr(id, "");
+    closeList(sel, true);
+    if (S.step === 3 && S.reason === "opleiding" && ["betaalt", "hoe", "opl"].includes(id)) renderPay("#s-" + id);
+  }
+
+  body.addEventListener("click", e => {
+    if (e.target.closest("#pick-tel")) { openPlanner("tel"); return; }
+    if (e.target.closest("#pick-intake")) { openPlanner("intake"); return; }
+    const lw = e.target.closest("[data-leerweg]");
+    if (lw) {
+      const v = lw.dataset.leerweg;
+      // Bij BBL en FLEX heb je een leerwerkplek nodig: eerst de pop-up
+      if (v === "BOL") { S.inschr.leerwerkplek = ""; setLeerweg(v); } else openLw(v);
+      return;
+    }
+    const ce = e.target.closest("[data-ctl-edit]");
+    if (ce) { const k = ce.dataset.ctlEdit; S.ctl.edit[k] = true; renderSec(k); const f = $(`#ctl-sec-${k} .ed input`); if (f) f.focus({ preventScroll: true }); return; }
+    const cc = e.target.closest("[data-ctl-cancel]");
+    if (cc) { const k = cc.dataset.ctlCancel; S.ctl.edit[k] = false; renderSec(k, "[data-ctl-edit]"); return; }
+    const cs = e.target.closest("[data-ctl-save]");
+    if (cs) { saveSec(cs.dataset.ctlSave); return; }
+    if (e.target.closest("[data-swap]")) {
+      const nieuw = ctlMode() === "termijn" ? "eenmalig" : "termijn";
+      S.ctl.mode = nieuw;
+      if (S.inschr.betaalt === "Dit doe ik zelf") S.inschr.hoe = nieuw === "termijn" ? "In termijnen" : "In een keer";
+      $("#ctl-cost").innerHTML = viewCost(); const b = $("#ctl-cost [data-swap]"); if (b) b.focus({ preventScroll: true }); return;
+    }
+    if (e.target.closest("[data-tc]") || e.target.closest("[data-tc-open]")) {
+      e.preventDefault();
+      S.ctl.open = e.target.closest("[data-tc-open]") ? true : !S.ctl.open;
+      renderTc(); const h = $("[data-tc]"); if (h) { h.focus({ preventScroll: true }); if (e.target.closest("[data-tc-open]")) h.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      return;
+    }
+    if (e.target.closest("[data-wg-copy]")) {
+      const o = S.inschr, w = o[pk()];
+      w.postcode = o.postcode; w.huisnr = o.huisnummer; w.toev = o.toevoeging || "";
+      renderPay("[data-wg-copy]");
+      toast(o.postcode || o.huisnummer ? "Postcode en huisnummer overgenomen. Vul adres en plaats nog aan." : "Vul eerst je eigen postcode en huisnummer in.");
+      return;
+    }
+    if (e.target.closest("[data-pay-once]")) { S.inschr.hoe = "In een keer"; setErr("hoe", ""); renderPay("#s-hoe"); return; }
+    const mt = e.target.closest("[data-methode]");
+    if (mt) { S.inschr.methode = mt.dataset.methode; setErr("methode", ""); renderPay(`[data-methode="${mt.dataset.methode}"]`); return; }
+    const sp = e.target.closest("[data-spin]");
+    if (sp) {
+      const inpt = $("#f-huisnummer"), v = Math.max(1, (parseInt(inpt.value, 10) || 0) + Number(sp.dataset.spin));
+      inpt.value = String(v); S.inschr.huisnummer = inpt.value; setErr("huisnummer", ""); return;
+    }
+    const btn = e.target.closest(".sel-btn");
+    if (btn) { const sel = btn.closest(".sel"); btn.getAttribute("aria-expanded") === "true" ? closeList(sel) : openList(sel); return; }
+    const li = e.target.closest('.sel-list [role="option"]');
+    if (li) choose(li.closest(".sel"), li);
+  });
+  body.addEventListener("mousemove", e => {
+    const li = e.target.closest('.sel-list [role="option"]');
+    if (li && !li.classList.contains("active")) setActive(li.closest(".sel"), li);
+  });
+  body.addEventListener("keydown", e => {
+    if (e.key === "Enter" && (e.target.name || "").startsWith("e_")) {
+      e.preventDefault();
+      const sec = e.target.closest("[id^=ctl-sec-]"); if (sec) saveSec(sec.id.slice(-1));
+      return;
+    }
+    const btn = e.target.closest(".sel-btn");
+    if (btn && (e.key === "ArrowDown" || e.key === "ArrowUp")) { e.preventDefault(); openList(btn.closest(".sel")); return; }
+    const list = e.target.closest(".sel-list");
+    if (!list) return;
+    const sel = list.closest(".sel"), opts = $$('[role="option"]', list), cur = opts.indexOf(list.querySelector(".active"));
+    const go = i => { e.preventDefault(); setActive(sel, opts[Math.max(0, Math.min(opts.length - 1, i))]); };
+    if (e.key === "ArrowDown") go(cur + 1);
+    else if (e.key === "ArrowUp") go(cur - 1);
+    else if (e.key === "Home") go(0);
+    else if (e.key === "End") go(opts.length - 1);
+    else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (opts[cur]) choose(sel, opts[cur]); }
+    else if (e.key === "Escape") { e.preventDefault(); closeList(sel, true); }
+    else if (e.key === "Tab") closeList(sel);
+  });
+  document.addEventListener("click", e => { if (openSel && !openSel.contains(e.target)) closeList(openSel); });
+
+  // ================= Formulier =================
+  body.addEventListener("input", e => {
+    if ((e.target.name || "").startsWith("e_")) {
+      const el = e.target, n = el.name.slice(2), del = (e.inputType || "").startsWith("delete");
+      if (n === "geboortedatum") {
+        const d = el.value.replace(/\D/g, "").slice(0, 8);
+        let v = d.length > 4 ? `${d.slice(0, 2)}-${d.slice(2, 4)}-${d.slice(4)}` : d.length > 2 ? `${d.slice(0, 2)}-${d.slice(2)}` : d;
+        if (!del && (d.length === 2 || d.length === 4)) v += "-";
+        el.value = v;
+      }
+      if (n === "postcode" || n === "opostcode") el.value = fmtPostcode(el.value, del);
+      if (n === "huisnummer" || n === "huisnr") el.value = el.value.replace(/\D/g, "");
+      return;
+    }
+    if (S.step === 3 && S.reason === "opleiding" && (e.target.name || "").startsWith("wg_")) {
+      const el = e.target, key = el.name.slice(3), del = (e.inputType || "").startsWith("delete");
+      if (key === "huisnr") el.value = el.value.replace(/\D/g, "");
+      if (key === "postcode") el.value = fmtPostcode(el.value, del);
+      const was = wgComplete();
+      S.inschr[pk()][key] = el.value;
+      if (inschrRules[el.name] && body.querySelector(`[data-field="${el.name}"].invalid`)) setErr(el.name, inschrRules[el.name](el.value));
+      if (was !== wgComplete()) renderWgExtra();
+      return;
+    }
+    if (S.step === 3 && S.reason === "opleiding" && ["geboortedatum", "postcode", "huisnummer", "toevoeging"].includes(e.target.name)) {
+      const el = e.target;
+      const del = (e.inputType || "").startsWith("delete");
+      if (el.name === "geboortedatum") {
+        // Alleen cijfers typen: de streepjes van dd-mm-jjjj staan al klaar en worden automatisch overgeslagen
+        const d = el.value.replace(/\D/g, "").slice(0, 8);
+        let v = d.length > 4 ? `${d.slice(0, 2)}-${d.slice(2, 4)}-${d.slice(4)}` : d.length > 2 ? `${d.slice(0, 2)}-${d.slice(2)}` : d;
+        if (!del && (d.length === 2 || d.length === 4)) v += "-";
+        el.value = v; updateDateMask(el);
+      }
+      if (el.name === "postcode") {
+        // Spatie tussen cijfers en letters komt er vanzelf in, letters worden hoofdletters
+        const raw = el.value.toUpperCase().replace(/[^0-9A-Z]/g, "");
+        const digits = (raw.match(/^\d{0,4}/) || [""])[0];
+        const letters = digits.length === 4 ? raw.slice(4).replace(/[^A-Z]/g, "").slice(0, 2) : "";
+        el.value = digits + (letters ? " " + letters : (!del && digits.length === 4 ? " " : ""));
+      }
+      if (el.name === "huisnummer") el.value = el.value.replace(/\D/g, "");
+      S.inschr[el.name] = el.value;
+      if (inschrRules[el.name] && body.querySelector(`[data-field="${el.name}"].invalid`)) setErr(el.name, inschrRules[el.name](el.value));
+      return;
+    }
+    if (e.target.id === "f-tekst") { S.vraag.tekst = e.target.value; if (e.target.value.trim()) setErr("tekst", ""); return; }
+    if (S.step === 1 && e.target.name && rules[e.target.name] && body.querySelector(`[data-field="${e.target.name}"].invalid`)) setErr(e.target.name, rules[e.target.name](e.target.value));
+  });
+  body.addEventListener("change", e => {
+    if (e.target.id === "f-ctl-boeken") {
+      S.ctl.boeken = e.target.checked;
+      $("#ctl-books").innerHTML = viewBooks(); $("#ctl-cost").innerHTML = viewCost();
+      const cb = $("#f-ctl-boeken"); if (cb) cb.focus({ preventScroll: true }); return;
+    }
+    if (e.target.id === "f-akk1" || e.target.id === "f-akk2") { S.ctl[e.target.id.slice(2)] = e.target.checked; if (S.ctl.akk1 && S.ctl.akk2) setErr("akk", ""); return; }
+    if (e.target.id === "f-mail") { S.ctl.mail = e.target.checked; return; }
+    if (e.target.id === "f-wg_offerte") { S.inschr[pk()].offerte = e.target.checked; renderWgExtra("#f-wg_offerte"); return; }
+    if (e.target.id === "f-wg_verklaring") { S.inschr[pk()].verklaring = e.target.checked; if (e.target.checked) setErr("wg_verklaring", ""); return; }
+    if (e.target.id === "f-akkoord") { S.inschr.akkoord = e.target.checked; if (e.target.checked) setErr("akkoord", ""); return; }
+    if (e.target.name === "reason") {
+      S.reason = e.target.value;
+      $$(".choice", body).forEach(c => c.classList.toggle("selected", c.querySelector("input").checked));
+      setErr("reason", "");
+      renderExtra();
+      renderSidebar();
+    }
+  });
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    if (S.done) return;
+    if (S.step === 4 && S.reason === "opleiding") {
+      const k = S.ctl;
+      const msg = !k.read ? "Lees eerst de voorwaarden helemaal door. Daarna kun je akkoord geven." : !(k.akk1 && k.akk2) ? "Vink beide verklaringen aan om je aanmelding te versturen." : "";
+      setErr("akk", msg);
+      if (msg) { (k.read ? $("#f-akk1") : $("[data-tc]")).focus(); return; }
+      S.done = "opleiding"; render(true); scrollTo("#intro"); return;
+    }
+    if (S.step === 3 && S.reason === "opleiding") {
+      if (!validateInschr()) return;
+      S.step = 4; render(true); scrollTo("#aanmelden"); return;
+    }
+    if (S.step === 1) {
+      if (!validateContact()) return;
+      S.step = 2; render(true); scrollTo("#aanmelden");
+    } else if (S.step === 2) {
+      if (!S.reason) { setErr("reason", "Kies waar je aanmelding over gaat."); return; }
+      if (S.reason === "open-dag") {
+        if (!validateOpenDag()) return;
+        S.done = "open-dag"; render(true); scrollTo("#intro");
+      } else if (S.reason === "opleiding") {
+        if (!validateOpleiding()) return;
+        S.step = 3; render(true); scrollTo("#aanmelden");
+      } else if (S.reason === "vraag") {
+        if (!validateVraag()) return;
+        S.done = "vraag"; render(true); scrollTo("#intro");
+      } else if (S.reason === "telefoongesprek") {
+        if (!validateTel()) return;
+        S.done = "telefoongesprek"; render(true); scrollTo("#intro");
+      } else { S.step = 3; render(true); scrollTo("#aanmelden"); }
+    }
+  });
+  back.addEventListener("click", () => { if (S.step > 1 && !S.done) { S.step -= 1; render(true); } });
+
+  // ================= Overige knoppen =================
+  function goHome() {
+    if (S.done) S = blank();
+    S.step = 1; render(); scrollTo("#aanmelden");
+  }
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-action]");
+    if (!a) return;
+    e.preventDefault();
+    const act = a.dataset.action;
+    if (act === "proto-reset") { S = blank(); render(true); scrollTo("#aanmelden"); toast("Prototype opnieuw gestart."); return; }
+    if (act === "home") goHome();
+    else if (act === "infodag") {
+      if (S.done) S = blank();
+      S.reason = "open-dag";
+      if (S.step === 1) { toast("Vul eerst je gegevens in. ‘Open dag’ staat alvast klaar in stap 2."); render(); }
+      else { S.step = 2; render(); }
+      scrollTo("#aanmelden");
+    }
+    else toast("Deze link werkt niet in het prototype.");
+  });
+
+  $("#reset").addEventListener("click", () => { S = blank(); render(); scrollTo("#aanmelden"); toast("Prototype opnieuw gestart."); });
+  $("#fill-demo").addEventListener("click", () => {
+    if (S.done) S = blank();
+    S.contact = { voornaam: "Sanne", achternaam: "de Vries", email: "sanne.devries@voorbeeld.nl", telefoon: "+31 6 123 45 678", nieuwsbrief: false };
+    S.openDag = { niveau: "HAVO", diploma: "HAVO", locatie: "Rotterdam" };
+    S.opleiding = { niveau: "HAVO", diploma: "HAVO" };
+    S.inschr = { start: "Februari 2027", locatie2: "Breda", opl: "Business Administration & Control Specialist (BACS) - MBO 4", momenten: ["2026-10-26|09:00", "2026-10-26|09:30", "2026-10-26|11:00"], leerweg: "BBL", leerwerkplek: "ja", geboortedatum: "01-10-2000", postcode: "1234 AB", huisnummer: "123", betaalt: "Dit doe ik zelf", hoe: "In termijnen", methode: "Automatische incasso", akkoord: true,
+      wg: { kenmerk: "123456", bedrijf: "Maas College", adres: "Kerkstraat", huisnr: "3", toev: "", plaats: "Rotterdam", postcode: "3011 AA", naam: "Peter de Boer", email: "p.deboer@voorbeeld.nl", offerte: false, opmerking: "", verklaring: false  },
+      gm: { kenmerk: "123456", bedrijf: "Gemeente Breda", adres: "Claudius Prinsenlaan", huisnr: "10", toev: "", plaats: "Breda", postcode: "4811 DJ", naam: "Sanne Jansen", email: "s.jansen@voorbeeld.nl", offerte: false, opmerking: "", verklaring: false  },
+      uwv: { kenmerk: "UWV-2026-0815", bedrijf: "", adres: "Stationsplein", huisnr: "1", toev: "", plaats: "Breda", postcode: "4811 BB", naam: "Mark de Vries", email: "m.devries@voorbeeld.nl", offerte: false, opmerking: "", verklaring: false } };
+    S.vraag = { onderwerp: "Opleidingskosten", tekst: "Kunt u aangeven wat de totale kosten zijn, inclusief alle bijkomende kosten naast het lesgeld van de opleiding Begeleider Maatschappelijke Zorg?" };
+    S.tel = { momenten: ["2026-10-26|09:00", "2026-10-26|09:30", `2026-10-28|${available(new Date(2026, 9, 28)).middag[0]}`], onderwerp: "Opleiding" };
+    render(); toast("Voorbeeldgegevens ingevuld (verzonnen).");
+  });
+
+  render();
+
+  // ================= Voorwaarden lezen =================
+  function renderTc() {
+    const w = $("#ctl-tc"); if (!w) return;
+    w.innerHTML = viewTc();
+    const tb = $("#tc-body");
+    if (tb && tb.scrollHeight <= tb.clientHeight + 4) markRead();
+  }
+  function markRead() {
+    if (S.ctl.read) return;
+    S.ctl.read = true;
+    $("#ctl-akk").innerHTML = viewAkkChecks();
+    const sm = $(".tc-head small"); if (sm) sm.textContent = "Je hebt de voorwaarden gelezen. Je kunt nu akkoord geven.";
+    if ($("#e-akk") && !$("#e-akk").hidden) setErr("akk", "");
+  }
+  body.addEventListener("scroll", e => {
+    const tb = e.target;
+    if (tb.id === "tc-body" && tb.scrollTop + tb.clientHeight >= tb.scrollHeight - 4) markRead();
+  }, true);
+
+  // ================= Pop-up leerwerkplek (BBL / FLEX) =================
+  function setLeerweg(v) {
+    S.inschr.leerweg = v;
+    $$("[data-leerweg]", body).forEach(b => { const on = b.dataset.leerweg === v; b.classList.toggle("sel", on); b.setAttribute("aria-checked", String(on)); });
+    setErr("leerweg", "");
+  }
+  const lwOv = $("#lw-modal"), lwBox = $("#lw-modal .lw");
+  const LW = { route: "", answer: "" };
+  function renderLw() {
+    const i = id => `<svg class="i"><use href="#${id}"/></svg>`;
+    lwBox.innerHTML = `
+      <div class="lw-head"><span class="ic">${i("i-info")}</span><h2 id="lw-title">Je hebt een leerwerkplek nodig</h2></div>
+      <p>Voor <strong>${LW.route}</strong> leer en werk je tegelijk. Daarvoor heb je een leerwerkplek nodig bij een erkend leerbedrijf.</p>
+      <div class="lbl" id="lw-q">Heb je al een leerwerkplek? <span class="req">*</span></div>
+      <div class="lw-opts" role="radiogroup" aria-labelledby="lw-q">${[["ja", "Ja"], ["nee", "Nee"]].map(([k, l]) => `<button type="button" role="radio" class="lw-opt ${LW.answer === k ? "sel" : ""}" aria-checked="${LW.answer === k}" data-lw="${k}"><span class="cb"></span>${l}</button>`).join("")}</div>
+      <div class="err" id="e-lw" hidden></div>
+      ${LW.answer === "nee" ? `<div class="lw-note">${i("i-info")}<div>Ga naar <a href="https://www.stagemarkt.nl" target="_blank" rel="noopener">stagemarkt.nl</a> om een leerwerkplek bij jou in de buurt te zoeken.</div></div>` : ""}
+      <div class="lw-foot"><button type="button" class="btn btn-solid" data-lw-ok>Bevestigen</button></div>`;
+  }
+  let lwReturn = null;
+  function openLw(route) {
+    LW.route = route; LW.answer = S.inschr.leerweg === route ? (S.inschr.leerwerkplek || "") : "";
+    lwReturn = document.activeElement;
+    renderLw(); lwOv.hidden = false; document.documentElement.style.overflow = "hidden"; lwBox.focus();
+  }
+  function closeLw() {
+    if (lwOv.hidden) return;
+    lwOv.hidden = true; document.documentElement.style.overflow = "";
+    if (lwReturn && document.contains(lwReturn)) lwReturn.focus();
+  }
+  lwBox.addEventListener("click", e => {
+    const opt = e.target.closest("[data-lw]");
+    if (opt) { LW.answer = opt.dataset.lw; renderLw(); const b = lwBox.querySelector(`[data-lw="${LW.answer}"]`); if (b) b.focus(); return; }
+    if (e.target.closest("[data-lw-ok]")) {
+      if (!LW.answer) { const er = $("#e-lw"); er.textContent = "Kies Ja of Nee."; er.hidden = false; return; }
+      S.inschr.leerwerkplek = LW.answer; setLeerweg(LW.route); closeLw();
+    }
+  });
+  lwOv.addEventListener("click", e => { if (e.target === lwOv) closeLw(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !lwOv.hidden) closeLw(); });
+
+  // ================= Planner telefoongesprek (modaal venster) =================
+  const LOGO_MINI = '<svg viewBox="0 0 48 44" aria-hidden="true"><circle cx="23" cy="6" r="5.5" fill="#f5a524"/><circle cx="7" cy="19" r="5.5" fill="#3f7fd8"/><circle cx="21" cy="20" r="6" fill="#6e57c7"/><circle cx="37" cy="20" r="6" fill="#d9233f"/><circle cx="15" cy="34" r="4.5" fill="#1d1d1f"/><circle cx="30" cy="35" r="5.5" fill="#2bb05e"/></svg>';
+  const ic = id => `<svg class="i"><use href="#${id}"/></svg>`;
+  const M = { mode: "tel", step: 1, week: 0, day: 0, draft: new Set() };
+  // Teksten per variant: terugbelverzoek (telefoongesprek) of intakegesprek (opleiding)
+  const PT = {
+    tel: {
+      h1: "Wanneer kunnen we je bellen?", s1: "Kies één of meer tijdvakken waarop we je kunnen bellen. Je kunt meerdere tijdvakken per ochtend of middag selecteren.",
+      i1: ["Geen vaste belafspraak", "We bellen je binnen een van je gekozen tijdvakken. Het precieze tijdstip binnen dat tijdvak kunnen we niet beloven."],
+      h2: "Kunnen we je op deze momenten bellen?", s2: "Controleer je keuzes. Geef daarna je beschikbaarheid officieel door.",
+      i2: ["Geen vaste belafspraak", "We bellen je binnen een van je gekozen tijdvakken. Lukt het niet om je te bereiken? Dan proberen we het op een ander moment nog een keer."],
+      h3: "Bedankt, je terugbelverzoek is ontvangen!", s3: "Je voorkeursmomenten zijn doorgegeven aan het Maas College. Wacht op een reactie ter bevestiging van je terugbel afspraak.",
+      ok: n => `${n} ${n === 1 ? "tijdvak" : "tijdvakken"} ontvangen`, min: 1,
+    },
+    intake: {
+      h1: "Wanneer kun jij?", s1: "Kies drie momenten waarop je beschikbaar bent voor een intakegesprek. Je kunt meerdere momenten per ochtend of middag selecteren.",
+      i1: ["Nog geen afspraak", "Meerdere kandidaten kunnen hetzelfde moment kiezen. De planner wijst later een van je voorkeuren toe en bevestigt je afspraak."],
+      h2: "Passen deze momenten voor jou?", s2: "Controleer je keuzes. Geef daarna je beschikbaarheid officieel door aan de planner, zodat jouw afspraak ingepland kan worden.",
+      i2: ["Nog geen bevestigde afspraak", "Meerdere kandidaten kunnen hetzelfde moment kiezen. Je geeft hiermee je beschikbaarheid door; je afspraak is nog niet bevestigd. Lukt het niet om een van je voorkeursmomenten in te plannen? Dan belt Maas College je om samen een ander moment af te spreken."],
+      h3: "Bedankt, je beschikbaarheid is ontvangen!", s3: "Je voorkeursmomenten zijn doorgegeven aan het Maas College. Wacht op een reactie ter bevestiging van je afspraak.",
+      ok: n => `${n} ${n === 1 ? "voorkeursmoment" : "voorkeursmomenten"} ontvangen`, min: 3, max: 3,
+    },
+  };
+  const T = () => PT[M.mode];
+  const store = () => M.mode === "intake" ? S.inschr : S.tel;
+  const ov = $("#tel-modal"), mbox = $("#tel-modal .modal");
+  let lastFocus = null;
+
+  function openPlanner(mode = "tel") {
+    M.mode = mode; M.step = 1; M.draft = new Set(store().momenten);
+    const first = [...M.draft].sort()[0];
+    if (first) { const d = parseIso(first.split("|")[0]); M.week = Math.max(0, Math.round((mondayOf(d) - START_WEEK) / (7 * 864e5))); M.day = dayIdx(d); }
+    else { M.week = 0; M.day = 0; }
+    lastFocus = document.activeElement;
+    ov.hidden = false; document.documentElement.style.overflow = "hidden";
+    renderPlanner(); mbox.focus();
+  }
+  function closePlanner() {
+    if (ov.hidden) return;
+    ov.hidden = true; document.documentElement.style.overflow = "";
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+
+  function plannerInfo([title, text], wide) {
+    return `<div class="m-info${wide ? " wide" : ""}">${ic("i-info")}<div><strong>${title}</strong>${text}</div></div>`;
+  }
+
+  function plannerStep1() {
+    const mon = addDays(START_WEEK, M.week * 7), days = [0, 1, 2, 3, 4].map(i => addDays(mon, i)), cur = days[M.day];
+    const free = available(cur);
+    const slotBtns = part => free[part].map(t => {
+      const k = `${iso(cur)}|${t}`, sel = M.draft.has(k);
+      // Intake: maximaal drie momenten; daarna zijn de overige tijdvakken uitgeschakeld
+      const full = !sel && T().max && M.draft.size >= T().max;
+      return `<button type="button" class="slot ${sel ? "sel" : ""}" data-m="slot" data-k="${k}" aria-pressed="${sel}" ${full ? "disabled" : ""}><span class="cb"></span>${slotLabel(t)}</button>`;
+    }).join("");
+    const groups = groupByDay(M.draft), n = M.draft.size;
+    const prefs = n ? groups.map(g => {
+      const parts = ["ochtend", "middag"].map(p => [p, g.times.filter(t => partOf(t) === p)]).filter(([, ts]) => ts.length);
+      return `<div class="pg-day">${dayName(g.date)}</div>` + parts.map(([p, ts]) => `<div class="pg-sub">${cap(p)} · ${beschikbaar(ts.length)}</div>` +
+        ts.map(t => `<div class="pref"><span>${slotLabel(t)}</span><button type="button" data-m="rm" data-k="${g.key}|${t}" aria-label="Verwijder ${dayNameShort(g.date)} ${slotLabel(t)}">${ic("i-x")}</button></div>`).join("")).join("");
+    }).join("") : '<p class="pg-empty">Nog geen momenten gekozen.</p>';
+    return {
+      body: `
+        <h2 class="m-h" id="m-title">${T().h1}</h2>
+        <p class="m-sub">${T().s1}</p>
+        <div class="m-grid">
+          <div class="m-card">
+            <div class="wk">
+              <button type="button" data-m="prev" aria-label="Vorige week" ${M.week === 0 ? "disabled" : ""}>${ic("i-left")}</button>
+              <div class="t"><strong>${weekRange(mon)}</strong><small>Week ${weekNr(mon)}</small></div>
+              <button type="button" data-m="next" aria-label="Volgende week">${ic("i-right")}</button>
+            </div>
+            <div class="days">${days.map((d, i) => `<button type="button" class="day ${i === M.day ? "sel" : ""}" data-m="day" data-i="${i}" aria-pressed="${i === M.day}" aria-label="${dayName(d)}"><small>${KORT[i]}</small><strong>${d.getDate()}</strong></button>`).join("")}</div>
+            <div class="day-h">${dayName(cur)}</div>
+            <p class="day-hint">Selecteer starttijden. Klik opnieuw om een keuze te wissen.</p>
+            <div class="part">Ochtend</div>
+            <div class="slots">${slotBtns("ochtend")}</div>
+            <div class="lunch">12:30–13:00 · Lunchpauze, niet beschikbaar</div>
+            <div class="part">Middag</div>
+            <div class="slots">${slotBtns("middag")}</div>
+          </div>
+          <div class="m-side">
+            <div class="m-card prefs"><h3>Jouw voorkeuren <span class="badge">${n}</span></h3>${prefs}${T().max && n >= T().max ? `<p class="pg-max">Je hebt ${T().max} momenten gekozen. Haal er een weg om een ander moment te kiezen.</p>` : ""}</div>
+            ${plannerInfo(T().i1, false)}
+          </div>
+        </div>`,
+      foot: `<div class="m-foot end"><button type="button" class="btn btn-solid" data-m="to2" ${n >= T().min ? "" : "disabled"}>Controleer mijn voorkeuren${ic("i-right")}</button></div>`,
+    };
+  }
+
+  function weeksLabel(groups) {
+    const seen = new Map();
+    for (const g of groups) { const mon = mondayOf(g.date); seen.set(iso(mon), `${weekRange(mon)} · Week ${weekNr(mon)}`); }
+    return [...seen.values()].join(" / ");
+  }
+
+  function plannerStep2() {
+    const groups = groupByDay(M.draft);
+    return {
+      body: `
+        <h2 class="m-h" id="m-title">${T().h2}</h2>
+        <p class="m-sub">${T().s2}</p>
+        <div class="ck-card">
+          <div class="ck-head"><div class="l">Jouw voorkeuren <span class="badge">${M.draft.size}</span></div><div class="r">${weeksLabel(groups)}</div></div>
+          ${groups.map(g => `
+            <div class="ck-row">
+              <div><strong>${dayName(g.date)}</strong><small>${partsLabel(g.times, momenten)}</small></div>
+              <div class="chips">${g.times.map(t => `<span class="chip">${slotLabel(t)}</span>`).join("")}</div>
+              <button type="button" class="wijzig" data-m="edit" data-d="${g.key}">${ic("i-pen")}Wijzigen</button>
+            </div>`).join("")}
+        </div>
+        ${plannerInfo(T().i2, true)}`,
+      foot: `<div class="m-foot"><button type="button" class="btn btn-plain" data-m="to1">${ic("i-left")}Terug</button><button type="button" class="btn btn-solid" data-m="to3">Bevestig mijn beschikbaarheid${ic("i-right")}</button></div>`,
+    };
+  }
+
+  function plannerStep3() {
+    const groups = groupByDay(M.draft), n = M.draft.size;
+    return {
+      body: `
+        <h2 class="m-h" id="m-title">${T().h3}</h2>
+        <p class="m-sub">${T().s3}</p>
+        <div class="ok-box"><span class="big">${ic("i-check")}</span><div><strong>${T().ok(n)}</strong><small>Dit is een bevestiging van je beschikbaarheid, niet van een afspraak.</small></div></div>
+        <h3 class="sec-h">Deze momenten heb je doorgegeven</h3>
+        <div class="done-rows">${groups.map(g => `
+          <div class="done-row">
+            <div><strong>${dayName(g.date)}</strong><small>${partsLabel(g.times, momenten)}</small></div>
+            <div class="chips">${g.times.map(t => `<span class="chip g"><span class="cb"></span>${slotLabel(t)}</span>`).join("")}</div>
+          </div>`).join("")}</div>
+        ${plannerInfo(T().i2, true)}`,
+      foot: `<div class="m-foot end"><button type="button" class="btn btn-solid" data-m="finish">Verder naar intakeformulier${ic("i-right")}</button></div>`,
+    };
+  }
+
+  function renderPlanner() {
+    // focus en scrollpositie bewaren bij opnieuw tekenen
+    const a = document.activeElement, keep = a && mbox.contains(a) && a.dataset.m ? `[data-m="${a.dataset.m}"]${a.dataset.k ? `[data-k="${a.dataset.k}"]` : ""}${a.dataset.i ? `[data-i="${a.dataset.i}"]` : ""}` : null;
+    const prevStep = mbox.dataset.step, oldBody = mbox.querySelector(".m-body"), scroll = oldBody ? oldBody.scrollTop : 0;
+    const st = i => i < M.step ? "done" : i === M.step ? "active" : "todo";
+    const lab = [s => s === "active" ? "Momenten kiezen" : "Moment kiezen", s => s === "todo" ? "Controleren" : "Controle", () => "Bevestigen"];
+    const steps = [1, 2, 3].map(i => { const s = st(i); return `<div class="m-step ${s}"${s === "active" ? ' aria-current="step"' : ""}><span class="c">${s === "done" ? ic("i-check") : i}</span>${lab[i - 1](s)}</div>`; }).join('<span class="m-conn"></span>');
+    const v = M.step === 1 ? plannerStep1() : M.step === 2 ? plannerStep2() : plannerStep3();
+    mbox.innerHTML = `
+      <div class="m-top">
+        <div class="m-brand"><div class="l"><span class="mini">${LOGO_MINI}<b>Maas</b> College</span><span>Intake · Beschikbaarheid</span></div>
+          <button type="button" class="m-close" data-m="close" aria-label="Sluiten">${ic("i-x")}</button></div>
+        <div class="m-steps">${steps}</div>
+      </div>
+      <div class="m-body s${M.step}">${v.body}</div>
+      ${v.foot}`;
+    mbox.dataset.step = M.step;
+    if (String(M.step) === prevStep) mbox.querySelector(".m-body").scrollTop = scroll;
+    if (keep) { const el = mbox.querySelector(keep); if (el && !el.disabled) el.focus({ preventScroll: true }); }
+  }
+
+  mbox.addEventListener("click", e => {
+    const b = e.target.closest("[data-m]"); if (!b || b.disabled) return;
+    const act = b.dataset.m;
+    if (act === "close" || act === "back1") return closePlanner();
+    if (act === "prev") { M.week = Math.max(0, M.week - 1); }
+    else if (act === "next") { M.week += 1; }
+    else if (act === "day") { M.day = +b.dataset.i; }
+    else if (act === "slot" || act === "rm") {
+      const k = b.dataset.k;
+      if (M.draft.has(k)) M.draft.delete(k);
+      else if (!T().max || M.draft.size < T().max) M.draft.add(k);
+    }
+    else if (act === "to1") { M.step = 1; }
+    else if (act === "to2") { M.step = 2; }
+    else if (act === "edit") { const d = parseIso(b.dataset.d); M.week = Math.max(0, Math.round((mondayOf(d) - START_WEEK) / (7 * 864e5))); M.day = dayIdx(d); M.step = 1; }
+    else if (act === "to3") {
+      // Beschikbaarheid doorgeven (alleen in dit prototype, er gaat niets weg)
+      store().momenten = [...M.draft].sort(); M.step = 3;
+      if (M.mode === "tel") { renderExtra(); setErr("momenten", ""); }
+      else {
+        const pk = $("#pick-intake");
+        if (pk) { pk.classList.remove("is-ph"); pk.querySelector("span").textContent = telSummary(S.inschr.momenten); }
+        setErr("afspraak", "");
+      }
+    }
+    else if (act === "finish") { closePlanner(); const p = $(M.mode === "intake" ? "#pick-intake" : "#pick-tel"); if (p) p.focus(); return; }
+    renderPlanner();
+    if (["to1", "to2", "to3", "edit"].includes(act)) mbox.focus();
+  });
+  ov.addEventListener("click", e => { if (e.target === ov) closePlanner(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !ov.hidden) closePlanner(); });
+  // Houd Tab binnen het venster
+  mbox.addEventListener("keydown", e => {
+    if (e.key !== "Tab") return;
+    const f = [...mbox.querySelectorAll("button:not([disabled])")]; if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === mbox)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  // ================= Hero-illustratie (generatief, in merkkleuren) =================
+  const cv = $("#hero-art"), ctx = cv.getContext("2d");
+  function rng(seed) { return () => (seed = (seed * 16807) % 2147483647) / 2147483647; }
+  function draw() {
+    const w = cv.clientWidth, h = cv.clientHeight, dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (!w || !h) return;
+    cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const g = ctx.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0, "#2c2b55"); g.addColorStop(.5, "#3a3366"); g.addColorStop(1, "#283a63");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+    const r = rng(7), cols = ["#f27a2a", "#f6d6b0", "#4f86d9", "#2e9e94", "#7a55b8", "#d9443a", "#f5a524", "#e9e1d3"];
+    ctx.lineCap = "round";
+    for (let i = 0; i < 140; i++) {
+      let x = r() * w * 1.2 - w * .1, y = r() * h;
+      const c = cols[Math.floor(r() * cols.length)], lw = 2 + r() * (i < 30 ? 22 : 7), len = 40 + r() * 70, ph = r() * 6.28;
+      ctx.strokeStyle = c; ctx.globalAlpha = .35 + r() * .5; ctx.lineWidth = lw;
+      ctx.beginPath(); ctx.moveTo(x, y);
+      for (let s = 0; s < len; s++) {
+        const a = Math.sin(x * .006 + ph) * 1.4 + Math.cos(y * .011 - ph * .5) * 1.1;
+        x += Math.cos(a) * 6; y += Math.sin(a) * 6;
+        ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    for (let i = 0; i < 6; i++) {
+      const x = r() * w, y = r() * h, rad = 60 + r() * 120, rg = ctx.createRadialGradient(x, y, 0, x, y, rad);
+      rg.addColorStop(0, "rgba(255,255,255,.18)"); rg.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = rg; ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);
+    }
+  }
+  draw();
+  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(draw, 120); });
+})();
+
+</script>
+
+</html>
