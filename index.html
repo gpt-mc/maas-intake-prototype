@@ -460,7 +460,11 @@ label.akk { margin-top: 10px; }
 .check.dis input { background-color: #f2f2f2; border-color: #e2e2e2; cursor: not-allowed; }
 .lnk { border: 0; background: none; padding: 0; font: inherit; color: var(--orange); font-weight: 600; cursor: pointer; }
 .check.dis .lnk { color: #fabf9b; }
-.lnk:hover { text-decoration: underline; }
+.lnk { text-decoration: underline; text-underline-offset: 2px; }
+.akk-ts { margin: 12px 0 0 27px; display: inline-flex; align-items: center; gap: 8px; background: var(--orange-soft); border-radius: 6px; padding: 8px 12px; font-size: 10.5px; font-weight: 600; color: var(--black); }
+.akk-ts svg { width: 13px; height: 13px; color: var(--orange); stroke-width: 2.2; }
+.tc-ok { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; vertical-align: 1px; background: var(--green-bg); color: var(--green); border-radius: 10px; padding: 1px 7px; font-size: 9px; font-weight: 600; }
+.tc-ok svg { width: 9px; height: 9px; stroke-width: 3; }
 .tc { border: 1px solid #e5e5e5; border-radius: 6px; margin-top: 14px; }
 .tc-head { width: 100%; border: 0; background: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; text-align: left; font-family: var(--f-body); }
 .tc-head strong { display: block; font-size: 10.5px; font-weight: 600; color: var(--black); }
@@ -585,6 +589,7 @@ footer { background: var(--purple); color: #fff; margin-top: -52px; padding-top:
   <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3a1.4 1.4 0 0 1 0 2l-6.7 6.7a1.4 1.4 0 0 1-2 0Z"/><circle cx="8" cy="8" r="1.3"/></symbol>
   <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14M14 4l4 4-4 4M20 16H6M10 12l-4 4 4 4"/></symbol>
   <symbol id="i-restart" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4.5v4h4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
   <symbol id="i-up" viewBox="0 0 24 24"><path d="m7 14 5-5 5 5"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
   <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
@@ -786,7 +791,7 @@ footer { background: var(--purple); color: #fff; margin-top: -52px; padding-top:
     reason: null,
     openDag: { niveau: "", diploma: "", locatie: "" },
     vraag: { onderwerp: "", tekst: "" },
-    ctl: { boeken: false, mode: "", read: false, open: false, akk1: false, akk2: false, mail: false, edit: { p: false, o: false } },
+    ctl: { boeken: false, mode: "", read: false, open: false, akk1: false, akk2: false, akkAt: null, mail: false, edit: { p: false, o: false } },
     opleiding: { niveau: "", diploma: "" },
     inschr: { start: "", locatie2: "", opl: "", momenten: [], leerweg: "", leerwerkplek: "", geboortedatum: "", postcode: "", huisnummer: "", betaalt: "", hoe: "", methode: "", akkoord: false,
       wg: { kenmerk: "", bedrijf: "", adres: "", huisnr: "", toev: "", plaats: "", postcode: "", naam: "", email: "", offerte: false, opmerking: "", verklaring: false },
@@ -1261,8 +1266,12 @@ footer { background: var(--purple); color: #fff; margin-top: -52px; padding-top:
       <label class="check akk ${dis ? "dis" : ""}"><input type="checkbox" id="f-akk1" ${k.akk1 ? "checked" : ""} ${dis ? "disabled" : ""}>
         <span>Ik verklaar kennis te hebben genomen van de kosten van mijn opleiding en van de ${lnk} die daarop van toepassing zijn. <span class="req">*</span></span></label>
       <label class="check akk ${dis ? "dis" : ""}"><input type="checkbox" id="f-akk2" ${k.akk2 ? "checked" : ""} ${dis ? "disabled" : ""}>
-        <span>Door dit formulier volledig in te vullen en te verzenden, verklaar ik dat ik de algemene voorwaarden aandachtig heb gelezen, daarvan kennis heb genomen en hiermee uitdrukkelijk akkoord ga. Ik begrijp en accepteer dat deze ${lnk} van toepassing zijn op de dienstverlening en/of overeenkomst waarop dit formulier betrekking heeft. <span class="req">*</span></span></label>`;
+        <span>Door dit formulier volledig in te vullen en te verzenden, verklaar ik dat ik de algemene voorwaarden aandachtig heb gelezen, daarvan kennis heb genomen en hiermee uitdrukkelijk akkoord ga. Ik begrijp en accepteer dat deze ${lnk} van toepassing zijn op de dienstverlening en/of overeenkomst waarop dit formulier betrekking heeft. <span class="req">*</span></span></label>
+      ${k.akkAt ? `<div class="akk-ts" role="status">${icn("i-clock")}Akkoord gegeven op ${fmtTs(k.akkAt)}</div>` : ""}`;
   }
+  // Tijdstempel van het akkoord: "10 november 2026 om 14:32:08" (alleen in dit prototype, niet opgeslagen)
+  const fmtTs = d => `${d.getDate()} ${MAANDEN[d.getMonth()]} ${d.getFullYear()} om ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  const TC_OK = `<span class="tc-ok"><svg class="i"><use href="#i-check"/></svg>Gelezen</span>`;
 
   function viewTc() {
     const k = S.ctl;
@@ -1277,7 +1286,7 @@ footer { background: var(--purple); color: #fff; margin-top: -52px; padding-top:
     return `
       <div class="tc ${k.open ? "open" : ""}">
         <button type="button" class="tc-head" data-tc aria-expanded="${k.open}" aria-controls="tc-body">
-          <span><strong>Algemene voorwaarden Maas College</strong><small>${k.read ? "Je hebt de voorwaarden gelezen. Je kunt nu akkoord geven." : "Open en lees de voorwaarden helemaal door. Daarna kun je akkoord geven."}</small></span>
+          <span><strong>Algemene voorwaarden Maas College${k.read ? TC_OK : ""}</strong><small>${k.read ? "Je hebt de voorwaarden helemaal gelezen. Je kunt nu akkoord geven." : "Open en lees de voorwaarden helemaal door. Daarna kun je akkoord geven."}</small></span>
           <span class="tc-lees">${k.open ? "Sluit voorwaarden" : "Lees voorwaarden"}${icn("i-down")}</span>
         </button>
         ${k.open ? `<div class="tc-body" id="tc-body" tabindex="0" aria-label="Algemene voorwaarden">
@@ -1777,7 +1786,18 @@ footer { background: var(--purple); color: #fff; margin-top: -52px; padding-top:
       $("#ctl-books").innerHTML = viewBooks(); $("#ctl-cost").innerHTML = viewCost();
       const cb = $("#f-ctl-boeken"); if (cb) cb.focus({ preventScroll: true }); return;
     }
-    if (e.target.id === "f-akk1" || e.target.id === "f-akk2") { S.ctl[e.target.id.slice(2)] = e.target.checked; if (S.ctl.akk1 && S.ctl.akk2) setErr("akk", ""); return; }
+    if (e.target.id === "f-akk1" || e.target.id === "f-akk2") {
+      const id = e.target.id, k = S.ctl;
+      k[id.slice(2)] = e.target.checked;
+      // Tijdstempel zodra beide verklaringen zijn aangevinkt; weg zodra er één uit gaat
+      const both = k.akk1 && k.akk2;
+      if (both && !k.akkAt) k.akkAt = new Date();
+      if (!both) k.akkAt = null;
+      if (both) setErr("akk", "");
+      $("#ctl-akk").innerHTML = viewAkkChecks();
+      const cb = $("#" + id); if (cb) cb.focus({ preventScroll: true });
+      return;
+    }
     if (e.target.id === "f-mail") { S.ctl.mail = e.target.checked; return; }
     if (e.target.id === "f-wg_offerte") { S.inschr[pk()].offerte = e.target.checked; renderWgExtra("#f-wg_offerte"); return; }
     if (e.target.id === "f-wg_verklaring") { S.inschr[pk()].verklaring = e.target.checked; if (e.target.checked) setErr("wg_verklaring", ""); return; }
@@ -1877,7 +1897,8 @@ footer { background: var(--purple); color: #fff; margin-top: -52px; padding-top:
     if (S.ctl.read) return;
     S.ctl.read = true;
     $("#ctl-akk").innerHTML = viewAkkChecks();
-    const sm = $(".tc-head small"); if (sm) sm.textContent = "Je hebt de voorwaarden gelezen. Je kunt nu akkoord geven.";
+    const sm = $(".tc-head small"); if (sm) sm.textContent = "Je hebt de voorwaarden helemaal gelezen. Je kunt nu akkoord geven.";
+    const st = $(".tc-head strong"); if (st && !st.querySelector(".tc-ok")) st.insertAdjacentHTML("beforeend", TC_OK);
     if ($("#e-akk") && !$("#e-akk").hidden) setErr("akk", "");
   }
   body.addEventListener("scroll", e => {
